@@ -19,5 +19,14 @@ const sequelize = new Sequelize(
         }
     });
 
+    sequelize
+	.authenticate()
+	.then(() =>
+		console.log("La connextion à la base de donnée à bien était établie")
+	)
+	.catch((error: Error) =>
+		console.error(`Impossible de se connecter à la base de données ${error}`)
+	);
+
 
 export default sequelize;
