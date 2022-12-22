@@ -10,7 +10,6 @@ export class UserMapper {
             gender: user.gender,
 			birthday: user.birthday,
 			email: user.email,
-			genre: user.genre,
 			phone: user.phone,
 		};
 		console.log("DTO user mapper", DTO);

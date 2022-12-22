@@ -10,8 +10,6 @@ export interface UserDTO {
 
     email : string;
 
-    genre : string;
-
     phone : number;
 
 }

@@ -28,11 +28,11 @@ export class UserService {
         })
     }
 	
-		// async update(user : User, id_user : number): Promise<boolean | number>{
-		// 	return this.userRepository.update(user, id_user).then((data) => {
-		// 		return data
-		// 	})
-		// }
+		async update(user: User, id_user : number): Promise<boolean | number>{
+			return this.userRepository.update(user, id_user).then((data) => {
+				return data
+			})
+		}
 
     async delete(id_td_user : number): Promise<boolean | number>{
         return this.userRepository.delete(id_td_user).then((data : boolean | number) => {

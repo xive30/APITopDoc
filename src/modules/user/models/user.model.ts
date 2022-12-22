@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../../../sequelize";
 
 export class User extends Model {
-	user_id!: number;
+	id_td_user!: number;
 
 	firstname!: string;
 
@@ -13,8 +13,6 @@ export class User extends Model {
 	birthday!: string;
 
 	email!: string;
-
-	genre!: string;
 
 	password!: string;
 
@@ -63,19 +61,19 @@ User.init(
 				notEmpty: { msg: concatRequiredMessage("Date de naissance") },
 			},
 		},
+		phone: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			validate: {
+				// is: /^$|^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/g,
+			},
+		},
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
 				// notNull: { msg: concatRequiredMessage('email') },
 				notEmpty: { msg: concatRequiredMessage("email") },
-			},
-		},
-		phone: {
-			type: DataTypes.STRING,
-			allowNull: true,
-			validate: {
-				// is: /^$|^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/g,
 			},
 		},
 		password: {
