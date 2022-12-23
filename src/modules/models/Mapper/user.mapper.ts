@@ -1,9 +1,10 @@
-import { UserDTO } from "./user.dto";
-import { User } from "./user.model";
+import { UserDTO } from "../DTO/user.dto";
+import { User } from "../user.model";
 
 export class UserMapper {
 	static MapToDTO(user: User | null): UserDTO {
 		if (user === null) return null as any;
+
 		const DTO: UserDTO = {
 			firstname: user.firstname,
 			lastname: user.lastname,
@@ -12,7 +13,6 @@ export class UserMapper {
 			email: user.email,
 			phone: user.phone,
 		};
-		console.log("DTO user mapper", DTO);
 		return DTO;
 	}
 }

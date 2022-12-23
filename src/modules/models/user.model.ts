@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../../sequelize";
+import sequelize from "../../sequelize";
 
 export class User extends Model {
 	id_td_user!: number;
@@ -17,6 +17,7 @@ export class User extends Model {
 	password!: string;
 
 	phone!: number;
+    static id_td_user: any;
 }
 
 const concatRequiredMessage = (data: string) => {

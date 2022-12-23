@@ -1,35 +1,35 @@
 import { Router } from "express";
-import userHandler from "../../modules/handler/user.handler";
+import locationHandler from "../../modules/handler/location.handler";
 
-export const userRouter = Router();
+export const locationRouter = Router();
 
 
 /**
  * @swagger
  * tags:
- *      name: User
+ *      name: Location
  *      description: Gestion des routes dédié aux utilisateurs
  */
 
 /**
  * @openapi
- * /api/v1/users:
+ * /api/v1/locations:
  *      get:
- *          tags: [User]
- *          description: liste des utilisateurs
+ *          tags: [Location]
+ *          description: liste des localisations
  *          responses:
  *              200:
  *                  description: la requète s'est bien déroulée.
  */
-userRouter.get("/", userHandler.getUsers);
+locationRouter.get("/", locationHandler.getLocations);
 
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/locations/{id}:
  *  get:
- *      tags: [User]
- *      description: Trouver un utilisateur par son Id
+ *      tags: [Location]
+ *      description: Trouver une localisation par son Id
  *      parameters:
  *       - name: id
  *         in: path
@@ -40,14 +40,14 @@ userRouter.get("/", userHandler.getUsers);
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.get("/:id", userHandler.getUserById)
+locationRouter.get("/:id", locationHandler.getLocationById)
 
 /**
  * @openapi
- * /api/v1/users:
+ * /api/v1/locations:
  *  post:
- *      tags: [User]
- *      description: Crée un utilisateur
+ *      tags: [Location]
+ *      description: Crée une localisation
  *      consumes:
  *       - application/json
  *      parameters:
@@ -55,20 +55,20 @@ userRouter.get("/:id", userHandler.getUserById)
  *         in: body
  *         required: true
  *         type: object
- *         default: {"firstname": "Fabrice", "lastname": "Lucini", "gender": "Homme", "birthday": "22/01/1977", "phone": "0425151568", "email": "test@gmail.com","password": "test"}
+ *         default: {"address": "8 Rue Jean Marc Poquelain", "zip_code": "95700", "city": "Roissy"}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.post("/", userHandler.createUser)
+locationRouter.post("/", locationHandler.createLocation)
 
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/locations/{id}:
  *  put:
- *      tags: [User]
- *      description: Modifier un utilisateur
+ *      tags: [Location]
+ *      description: Modifier une localisation
  *      consumes:
  *       - application/json
  *      parameters:
@@ -81,19 +81,19 @@ userRouter.post("/", userHandler.createUser)
  *         in: body
  *         required: true
  *         type: formData
- *         default: {"firstname": "Fabrice", "lastname": "Lucini", "gender": "Homme", "birthday": "22/01/1977", "phone": "0425151568", "email": "test@gmail.com","password": "test"}
+ *         default: {"address": "8 Rue Jean Marc Poquelain", "zip_code": "95700", "city": "Roissy"}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.put("/:id", userHandler.updateUser)
+locationRouter.put("/:id", locationHandler.updateLocation)
 
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/locations/{id}:
  *  delete:
- *      tags: [User]
+ *      tags: [Location]
  *      description: Supprimer un utilisateur
  *      parameters:
  *       - name: id
@@ -104,4 +104,4 @@ userRouter.put("/:id", userHandler.updateUser)
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.delete("/:id", userHandler.deleteUser)
+locationRouter.delete("/:id", locationHandler.deleteLocation)

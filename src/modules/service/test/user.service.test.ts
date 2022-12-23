@@ -1,6 +1,6 @@
 import { IRepository } from "~/modules/core/respository.interface";
-import { UserDTO } from "../models/user.dto";
-import { UserService } from "./user.service";
+import { UserDTO } from "../../models/DTO/user.dto";
+import { UserService } from "../user.service";
 
 describe("UserService", () => {
 	describe("UserService.__findById_null", () => {
