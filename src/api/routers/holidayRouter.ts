@@ -1,33 +1,33 @@
 import { Router } from "express";
-import { userHandler } from "~/injection";
+import { holidayHandler } from "~/injection";
 
-export const userRouter = Router();
+export const holidayRouter = Router();
 
 /**
  * @swagger
  * tags:
- *      name: User
- *      description: Gestion des routes dédié aux utilisateurs
+ *      name: Holiday
+ *      description: Gestion des routes dédié aux Vacances des Praticiens
  */
 
 /**
  * @openapi
- * /api/v1/users:
+ * /api/v1/holidays:
  *      get:
- *          tags: [User]
- *          description: liste des utilisateurs
+ *          tags: [Holiday]
+ *          description: liste des vacances
  *          responses:
  *              200:
  *                  description: la requète s'est bien déroulée.
  */
-userRouter.get("/", userHandler.getUsers);
+holidayRouter.get("/", holidayHandler.getHolidays);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/holidays/{id}:
  *  get:
- *      tags: [User]
- *      description: Trouver un utilisateur par son Id
+ *      tags: [Holiday]
+ *      description: Trouver un temps de vacances par son Id
  *      parameters:
  *       - name: id
  *         in: path
@@ -38,14 +38,14 @@ userRouter.get("/", userHandler.getUsers);
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.get("/:id", userHandler.getUserById);
+holidayRouter.get("/:id", holidayHandler.getHolidayById);
 
 /**
  * @openapi
- * /api/v1/users:
+ * /api/v1/holidays:
  *  post:
- *      tags: [User]
- *      description: Crée un utilisateur
+ *      tags: [Holiday]
+ *      description: Crée un temps de vacances
  *      consumes:
  *       - application/json
  *      parameters:
@@ -53,19 +53,19 @@ userRouter.get("/:id", userHandler.getUserById);
  *         in: body
  *         required: true
  *         type: object
- *         default: {"firstname": "Fabrice", "lastname": "Lucini", "gender": "Homme", "birthday": "22/01/1977", "phone": "0425151568", "email": "test@gmail.com","password": "test"}
+ *         default: {"json à définir": "json à définir",}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.post("/", userHandler.createUser);
+holidayRouter.post("/", holidayHandler.createHoliday);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/holidays/{id}:
  *  put:
- *      tags: [User]
- *      description: Modifier un utilisateur
+ *      tags: [Holiday]
+ *      description: Modifier un temps de vacances
  *      consumes:
  *       - application/json
  *      parameters:
@@ -78,19 +78,19 @@ userRouter.post("/", userHandler.createUser);
  *         in: body
  *         required: true
  *         type: formData
- *         default: {"firstname": "Fabrice", "lastname": "Lucini", "gender": "Homme", "birthday": "22/01/1977", "phone": "0425151568", "email": "test@gmail.com","password": "test"}
+ *         default: {"json à définir": "json à définir",}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.put("/:id", userHandler.updateUser);
+holidayRouter.put("/:id", holidayHandler.updateHoliday);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/holidays/{id}:
  *  delete:
- *      tags: [User]
- *      description: Supprimer un utilisateur
+ *      tags: [Holiday]
+ *      description: Supprimer un temps de vacances
  *      parameters:
  *       - name: id
  *         in: path
@@ -100,4 +100,4 @@ userRouter.put("/:id", userHandler.updateUser);
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.delete("/:id", userHandler.deleteUser);
+holidayRouter.delete("/:id", holidayHandler.deleteHoliday);

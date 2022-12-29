@@ -1,71 +1,80 @@
 import { Request, Response } from "express";
-import { UserRepository } from "~/modules/repository/user.repository";
-import { UserService } from "~/modules/service/user.service";
+import { logger } from "~/winston.logger";
+import { IService } from "../core/service.interface";
+import { UserDTO } from "../models/DTO/user.dto";
 
 const bcrypt = require("bcrypt");
-const userService = new UserService(new UserRepository());
 
-const getUsers = async (req: Request, res: Response) => {
-	try {
-		const result = await userService.findAll();
-		if (result === null) return res.status(404).send();
-		res.status(200).json(result);
-	} catch (err) {
-		res.status(500).json(`problème au nivau de handler : ${err}`);
+export class UserHandler {
+	private userService: IService<UserDTO>;
+
+	constructor(userService: IService<UserDTO>) {
+		this.userService = userService;
 	}
-};
-const getUserById = async (req: Request, res: Response) => {
-	try {
-		const result = await userService.findById(parseInt(req.params.id));
-		if (result === null) {
-			return res.status(404).send();
+
+	/*
+	 *
+	 * @param req
+	 * @param res
+	 * @returns
+	 */
+	getUsers = async (req: Request, res: Response) => {
+		try {
+			const result = await this.userService.findAll();
+			if (result === null) return res.status(404).send();
+			res.status(200).json(result);
+		} catch (err) {
+			logger.error(err);
+			res.status(500).json(`problème au nivau de handler : ${err}`);
 		}
-		return res.status(200).json(result);
-	} catch (error) {
-		return res.status(500).json(error);
-	}
-};
+	};
 
-const createUser = async (req: Request, res: Response) => {
-	try {
-		req.body.password = await bcrypt.hash(req.body.password, 10);
-		const result = await userService.create(req.body);
-		return res.status(200).json(result);
-	} catch (error) {
-		return res.status(500).json(error);
-	}
-};
-
-const updateUser = async (req: Request, res: Response) => {
-	try {
-		if (req.body.password) {
-			let hashedPassword = await bcrypt.hash(req.body.password, 10);
-			req.body = { ...req.body, password: hashedPassword };
+	getUserById = async (req: Request, res: Response) => {
+		try {
+			const result = await this.userService.findById(parseInt(req.params.id));
+			if (result === null) {
+				return res.status(404).send();
+			}
+			return res.status(200).json(result);
+		} catch (error) {
+			return res.status(500).json(error);
 		}
-		const result = await userService.update(req.body, parseInt(req.params.id));
-		return res.status(200).json(result);
-	} catch (error) {
-		return res.status(500).json(error);
-	}
-};
+	};
 
-const deleteUser = async (req: Request, res: Response) => {
-	try {
-		const result = await userService.delete(parseInt(req.params.id));
-		return res
-			.status(200)
-			.json(result ? " Utilisateur supprimé" : "Utilisateur Non Supprimé");
-	} catch (error) {
-		return res.status(500).json(error);
-	}
-};
+	createUser = async (req: Request, res: Response) => {
+		try {
+			req.body.password = await bcrypt.hash(req.body.password, 10);
+			const result = await this.userService.create(req.body);
+			return res.status(200).json(result);
+		} catch (error) {
+			return res.status(500).json(error);
+		}
+	};
 
-const userHandler = {
-	getUsers,
-	getUserById,
-	createUser,
-	updateUser,
-	deleteUser,
-};
+	updateUser = async (req: Request, res: Response) => {
+		try {
+			if (req.body.password) {
+				let hashedPassword = await bcrypt.hash(req.body.password, 10);
+				req.body = { ...req.body, password: hashedPassword };
+			}
+			const result = await this.userService.update(
+				req.body,
+				parseInt(req.params.id)
+			);
+			return res.status(200).json(result);
+		} catch (error) {
+			return res.status(500).json(error);
+		}
+	};
 
-export default userHandler;
+	deleteUser = async (req: Request, res: Response) => {
+		try {
+			const result = await this.userService.delete(parseInt(req.params.id));
+			return res
+				.status(200)
+				.json(result ? " Utilisateur supprimé" : "Utilisateur Non Supprimé");
+		} catch (error) {
+			return res.status(500).json(error);
+		}
+	};
+}

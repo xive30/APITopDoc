@@ -1,8 +1,9 @@
 import { IRepository } from "../core/respository.interface";
+import { IService } from "../core/service.interface";
 import { EmailBannedDTO } from "../models/DTO/emailBanned.dto";
 import { EmailBanned } from "../models/emailBanned.model";
 
-export class EmailBannedService {
+export class EmailBannedService implements IService<EmailBannedDTO> {
 	private emailBannedRepository: IRepository<EmailBannedDTO>;
 
 	constructor(emailBannedRepository: IRepository<EmailBannedDTO>) {
@@ -22,9 +23,7 @@ export class EmailBannedService {
 		});
 	}
 
-	async create(
-		emailBanned: EmailBanned
-	): Promise<EmailBannedDTO | null> {
+	async create(emailBanned: EmailBanned): Promise<EmailBannedDTO | null> {
 		return this.emailBannedRepository.create(emailBanned).then((data) => {
 			return data;
 		});

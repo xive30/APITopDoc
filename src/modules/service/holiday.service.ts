@@ -1,8 +1,9 @@
 import { IRepository } from "../core/respository.interface";
+import { IService } from "../core/service.interface";
 import { HolidayDTO } from "../models/DTO/holiday.dto";
 import { Holiday } from "../models/holiday.model";
 
-export class HolidayService {
+export class HolidayService implements IService<HolidayDTO> {
 	private holidayRepository: IRepository<HolidayDTO>;
 
 	constructor(holidayRepository: IRepository<HolidayDTO>) {
@@ -22,9 +23,7 @@ export class HolidayService {
 		});
 	}
 
-	async create(
-		holiday: Holiday
-	): Promise<HolidayDTO | null> {
+	async create(holiday: Holiday): Promise<HolidayDTO | null> {
 		return this.holidayRepository.create(holiday).then((data) => {
 			return data;
 		});
@@ -34,11 +33,9 @@ export class HolidayService {
 		holiday: Holiday,
 		id_holiday: number
 	): Promise<boolean | number> {
-		return this.holidayRepository
-			.update(holiday, id_holiday)
-			.then((data) => {
-				return data;
-			});
+		return this.holidayRepository.update(holiday, id_holiday).then((data) => {
+			return data;
+		});
 	}
 
 	async delete(id_holiday: number): Promise<boolean | number> {

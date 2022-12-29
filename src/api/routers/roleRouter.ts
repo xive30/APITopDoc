@@ -1,33 +1,33 @@
 import { Router } from "express";
-import { userHandler } from "~/injection";
+import { roleHandler } from "~/injection";
 
-export const userRouter = Router();
+export const roleRouter = Router();
 
 /**
  * @swagger
  * tags:
- *      name: User
- *      description: Gestion des routes dédié aux utilisateurs
+ *      name: Role
+ *      description: Gestion des routes dédié aux Roles
  */
 
 /**
  * @openapi
- * /api/v1/users:
+ * /api/v1/roles:
  *      get:
- *          tags: [User]
- *          description: liste des utilisateurs
+ *          tags: [Role]
+ *          description: liste des roles
  *          responses:
  *              200:
  *                  description: la requète s'est bien déroulée.
  */
-userRouter.get("/", userHandler.getUsers);
+roleRouter.get("/", roleHandler.getRoles);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/roles/{id}:
  *  get:
- *      tags: [User]
- *      description: Trouver un utilisateur par son Id
+ *      tags: [Role]
+ *      description: Trouver un role par son Id
  *      parameters:
  *       - name: id
  *         in: path
@@ -38,14 +38,14 @@ userRouter.get("/", userHandler.getUsers);
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.get("/:id", userHandler.getUserById);
+roleRouter.get("/:id", roleHandler.getRoleById);
 
 /**
  * @openapi
- * /api/v1/users:
+ * /api/v1/roles:
  *  post:
- *      tags: [User]
- *      description: Crée un utilisateur
+ *      tags: [Role]
+ *      description: Crée un role
  *      consumes:
  *       - application/json
  *      parameters:
@@ -53,19 +53,19 @@ userRouter.get("/:id", userHandler.getUserById);
  *         in: body
  *         required: true
  *         type: object
- *         default: {"firstname": "Fabrice", "lastname": "Lucini", "gender": "Homme", "birthday": "22/01/1977", "phone": "0425151568", "email": "test@gmail.com","password": "test"}
+ *         default: {"json à définir": "json à définir",}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.post("/", userHandler.createUser);
+roleRouter.post("/", roleHandler.createRole);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/roles/{id}:
  *  put:
- *      tags: [User]
- *      description: Modifier un utilisateur
+ *      tags: [Role]
+ *      description: Modifier un role
  *      consumes:
  *       - application/json
  *      parameters:
@@ -78,19 +78,19 @@ userRouter.post("/", userHandler.createUser);
  *         in: body
  *         required: true
  *         type: formData
- *         default: {"firstname": "Fabrice", "lastname": "Lucini", "gender": "Homme", "birthday": "22/01/1977", "phone": "0425151568", "email": "test@gmail.com","password": "test"}
+ *         default: {"json à définir": "json à définir",}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.put("/:id", userHandler.updateUser);
+roleRouter.put("/:id", roleHandler.updateRole);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/roles/{id}:
  *  delete:
- *      tags: [User]
- *      description: Supprimer un utilisateur
+ *      tags: [Role]
+ *      description: Supprimer un role
  *      parameters:
  *       - name: id
  *         in: path
@@ -100,4 +100,4 @@ userRouter.put("/:id", userHandler.updateUser);
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.delete("/:id", userHandler.deleteUser);
+roleRouter.delete("/:id", roleHandler.deleteRole);

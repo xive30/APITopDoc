@@ -1,8 +1,9 @@
 import { IRepository } from "../core/respository.interface";
+import { IService } from "../core/service.interface";
 import { PatientDTO } from "../models/DTO/patient.dto";
 import { Patient } from "../models/patient.model";
 
-export class PatientService {
+export class PatientService implements IService<PatientDTO> {
 	private patientRepository: IRepository<PatientDTO>;
 
 	constructor(patientRepository: IRepository<PatientDTO>) {
@@ -22,9 +23,7 @@ export class PatientService {
 		});
 	}
 
-	async create(
-		patient: Patient
-	): Promise<PatientDTO | null> {
+	async create(patient: Patient): Promise<PatientDTO | null> {
 		return this.patientRepository.create(patient).then((data) => {
 			return data;
 		});
@@ -34,11 +33,9 @@ export class PatientService {
 		patient: Patient,
 		id_td_user: number
 	): Promise<boolean | number> {
-		return this.patientRepository
-			.update(patient, id_td_user)
-			.then((data) => {
-				return data;
-			});
+		return this.patientRepository.update(patient, id_td_user).then((data) => {
+			return data;
+		});
 	}
 
 	async delete(id_td_user: number): Promise<boolean | number> {

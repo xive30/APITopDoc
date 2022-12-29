@@ -1,5 +1,5 @@
 import { Router } from "express";
-import locationHandler from "../../modules/handler/location.handler";
+import { locationHandler } from "~/injection";
 
 export const locationRouter = Router();
 
@@ -8,7 +8,7 @@ export const locationRouter = Router();
  * @swagger
  * tags:
  *      name: Location
- *      description: Gestion des routes dédié aux utilisateurs
+ *      description: Gestion des routes dédié aux Localisations d'utilisateurs ou d'activités
  */
 
 /**

@@ -1,8 +1,9 @@
 import { IRepository } from "../core/respository.interface";
+import { IService } from "../core/service.interface";
 import { Activity } from "../models/activity.model";
 import { ActivityDTO } from "../models/DTO/activity.dto";
 
-export class ActivityService {
+export class ActivityService implements IService<ActivityDTO> {
 	private activityRepository: IRepository<ActivityDTO>;
 
 	constructor(activityRepository: IRepository<ActivityDTO>) {
@@ -22,9 +23,7 @@ export class ActivityService {
 		});
 	}
 
-	async create(
-		activity: Activity
-	): Promise<ActivityDTO | null> {
+	async create(activity: Activity): Promise<ActivityDTO | null> {
 		return this.activityRepository.create(activity).then((data) => {
 			return data;
 		});

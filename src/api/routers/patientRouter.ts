@@ -1,33 +1,33 @@
 import { Router } from "express";
-import { userHandler } from "~/injection";
+import { patientHandler } from "~/injection";
 
-export const userRouter = Router();
+export const patientRouter = Router();
 
 /**
  * @swagger
  * tags:
- *      name: User
- *      description: Gestion des routes dédié aux utilisateurs
+ *      name: Patient
+ *      description: Gestion des routes dédié aux patients
  */
 
 /**
  * @openapi
- * /api/v1/users:
+ * /api/v1/patients:
  *      get:
- *          tags: [User]
- *          description: liste des utilisateurs
+ *          tags: [Patient]
+ *          description: liste des patients
  *          responses:
  *              200:
  *                  description: la requète s'est bien déroulée.
  */
-userRouter.get("/", userHandler.getUsers);
+patientRouter.get("/", patientHandler.getPatients);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/patients/{id}:
  *  get:
- *      tags: [User]
- *      description: Trouver un utilisateur par son Id
+ *      tags: [Patient]
+ *      description: Trouver un patient par son Id
  *      parameters:
  *       - name: id
  *         in: path
@@ -38,14 +38,14 @@ userRouter.get("/", userHandler.getUsers);
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.get("/:id", userHandler.getUserById);
+patientRouter.get("/:id", patientHandler.getPatientById);
 
 /**
  * @openapi
- * /api/v1/users:
+ * /api/v1/patients:
  *  post:
- *      tags: [User]
- *      description: Crée un utilisateur
+ *      tags: [Patient]
+ *      description: Crée un patient
  *      consumes:
  *       - application/json
  *      parameters:
@@ -53,19 +53,19 @@ userRouter.get("/:id", userHandler.getUserById);
  *         in: body
  *         required: true
  *         type: object
- *         default: {"firstname": "Fabrice", "lastname": "Lucini", "gender": "Homme", "birthday": "22/01/1977", "phone": "0425151568", "email": "test@gmail.com","password": "test"}
+ *         default: {"json à définir": "json à définir",}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.post("/", userHandler.createUser);
+patientRouter.post("/", patientHandler.createPatient);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/patients/{id}:
  *  put:
- *      tags: [User]
- *      description: Modifier un utilisateur
+ *      tags: [Patient]
+ *      description: Modifier un patient
  *      consumes:
  *       - application/json
  *      parameters:
@@ -78,19 +78,19 @@ userRouter.post("/", userHandler.createUser);
  *         in: body
  *         required: true
  *         type: formData
- *         default: {"firstname": "Fabrice", "lastname": "Lucini", "gender": "Homme", "birthday": "22/01/1977", "phone": "0425151568", "email": "test@gmail.com","password": "test"}
+ *         default: {"json à définir": "json à définir",}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.put("/:id", userHandler.updateUser);
+patientRouter.put("/:id", patientHandler.updatePatient);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/patients/{id}:
  *  delete:
- *      tags: [User]
- *      description: Supprimer un utilisateur
+ *      tags: [Patient]
+ *      description: Supprimer un patient
  *      parameters:
  *       - name: id
  *         in: path
@@ -100,4 +100,4 @@ userRouter.put("/:id", userHandler.updateUser);
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.delete("/:id", userHandler.deleteUser);
+patientRouter.delete("/:id", patientHandler.deletePatient);

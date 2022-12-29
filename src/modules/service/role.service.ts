@@ -1,8 +1,9 @@
 import { IRepository } from "../core/respository.interface";
+import { IService } from "../core/service.interface";
 import { RoleDTO } from "../models/DTO/role.dto";
 import { Role } from "../models/role.model";
 
-export class RoleService {
+export class RoleService implements IService<RoleDTO> {
 	private roleRepository: IRepository<RoleDTO>;
 
 	constructor(roleRepository: IRepository<RoleDTO>) {
@@ -22,23 +23,16 @@ export class RoleService {
 		});
 	}
 
-	async create(
-		role: Role
-	): Promise<RoleDTO | null> {
+	async create(role: Role): Promise<RoleDTO | null> {
 		return this.roleRepository.create(role).then((data) => {
 			return data;
 		});
 	}
 
-	async update(
-		role: Role,
-		id_role: number
-	): Promise<boolean | number> {
-		return this.roleRepository
-			.update(role, id_role)
-			.then((data) => {
-				return data;
-			});
+	async update(role: Role, id_role: number): Promise<boolean | number> {
+		return this.roleRepository.update(role, id_role).then((data) => {
+			return data;
+		});
 	}
 
 	async delete(id_role: number): Promise<boolean | number> {

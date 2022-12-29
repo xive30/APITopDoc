@@ -1,8 +1,9 @@
 import { UserDTO } from "../models/DTO/user.dto";
 import { IRepository } from "../core/respository.interface";
 import { User } from "../models/user.model";
+import { IService } from "../core/service.interface";
 
-export class UserService {
+export class UserService implements IService<UserDTO> {
 	private userRepository: IRepository<UserDTO>;
 
 	constructor(userRepository: IRepository<UserDTO>) {

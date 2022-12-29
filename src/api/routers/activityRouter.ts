@@ -1,33 +1,33 @@
 import { Router } from "express";
-import { userHandler } from "~/injection";
+import { activityHandler } from "~/injection";
 
-export const userRouter = Router();
+export const activityRouter = Router();
 
 /**
  * @swagger
  * tags:
- *      name: User
- *      description: Gestion des routes dédié aux utilisateurs
+ *      name: Activity
+ *      description: Gestion des routes dédié aux Activités des Praticiens
  */
 
 /**
  * @openapi
- * /api/v1/users:
+ * /api/v1/activities:
  *      get:
- *          tags: [User]
- *          description: liste des utilisateurs
+ *          tags: [Activity]
+ *          description: liste des activités
  *          responses:
  *              200:
  *                  description: la requète s'est bien déroulée.
  */
-userRouter.get("/", userHandler.getUsers);
+activityRouter.get("/", activityHandler.getActivities);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/activities/{id}:
  *  get:
- *      tags: [User]
- *      description: Trouver un utilisateur par son Id
+ *      tags: [Activity]
+ *      description: Trouver une activité par son Id
  *      parameters:
  *       - name: id
  *         in: path
@@ -38,14 +38,14 @@ userRouter.get("/", userHandler.getUsers);
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.get("/:id", userHandler.getUserById);
+activityRouter.get("/:id", activityHandler.getActivityById);
 
 /**
  * @openapi
- * /api/v1/users:
+ * /api/v1/activities:
  *  post:
- *      tags: [User]
- *      description: Crée un utilisateur
+ *      tags: [Activity]
+ *      description: Crée une activité
  *      consumes:
  *       - application/json
  *      parameters:
@@ -53,19 +53,19 @@ userRouter.get("/:id", userHandler.getUserById);
  *         in: body
  *         required: true
  *         type: object
- *         default: {"firstname": "Fabrice", "lastname": "Lucini", "gender": "Homme", "birthday": "22/01/1977", "phone": "0425151568", "email": "test@gmail.com","password": "test"}
+ *         default: {"json à définir": "json à définir",}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.post("/", userHandler.createUser);
+activityRouter.post("/", activityHandler.createActivity);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/activities/{id}:
  *  put:
- *      tags: [User]
- *      description: Modifier un utilisateur
+ *      tags: [Activity]
+ *      description: Modifier une activité
  *      consumes:
  *       - application/json
  *      parameters:
@@ -78,19 +78,19 @@ userRouter.post("/", userHandler.createUser);
  *         in: body
  *         required: true
  *         type: formData
- *         default: {"firstname": "Fabrice", "lastname": "Lucini", "gender": "Homme", "birthday": "22/01/1977", "phone": "0425151568", "email": "test@gmail.com","password": "test"}
+ *         default: {"json à définir": "json à définir",}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.put("/:id", userHandler.updateUser);
+activityRouter.put("/:id", activityHandler.updateActivity);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/activities/{id}:
  *  delete:
- *      tags: [User]
- *      description: Supprimer un utilisateur
+ *      tags: [Activity]
+ *      description: Supprimer une activité
  *      parameters:
  *       - name: id
  *         in: path
@@ -100,4 +100,4 @@ userRouter.put("/:id", userHandler.updateUser);
  *        200:
  *          description: La requête s'est bien déroulée.
  */
-userRouter.delete("/:id", userHandler.deleteUser);
+activityRouter.delete("/:id", activityHandler.deleteActivity);

@@ -1,8 +1,9 @@
 import { LocationDTO } from "../models/DTO/location.dto";
 import { IRepository } from "../core/respository.interface";
 import { Location } from "../models/location.model";
+import { IService } from "../core/service.interface";
 
-export class LocationService {
+export class LocationService implements IService<LocationDTO> {
 	private locationRepository: IRepository<LocationDTO>;
 
 	constructor(locationRepository: IRepository<LocationDTO>) {
