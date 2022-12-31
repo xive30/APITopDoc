@@ -1,5 +1,5 @@
 import { LocationDTO } from "../DTO/location.dto";
-import { Location } from "../location.model";
+import { Location } from "../Models/location.model";
 
 export class LocationMapper {
     static MapToDTO(location: Location | null): LocationDTO {

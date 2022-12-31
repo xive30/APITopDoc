@@ -1,5 +1,5 @@
 import { UserDTO } from "../DTO/user.dto";
-import { User } from "../user.model";
+import { User } from "../Models/user.model";
 
 export class UserMapper {
 	static MapToDTO(user: User | null): UserDTO {

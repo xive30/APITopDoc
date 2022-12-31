@@ -1,5 +1,5 @@
 import { EmailBannedDTO } from "../DTO/emailBanned.dto";
-import { EmailBanned } from "../emailBanned.model";
+import { EmailBanned } from "../Models/emailBanned.model";
 
 
 export class EmailBannedMapper {

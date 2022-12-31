@@ -1,7 +1,7 @@
 import { IRepository } from "../core/respository.interface";
 import { IService } from "../core/service.interface";
 import { ScheduleAdminDTO } from "../models/DTO/schedludeAdmin.dto";
-import { ScheduleAdmin } from "../models/scheduleAdmin.model";
+import { ScheduleAdmin } from "../models/Models/scheduleAdmin.model";
 
 export class ScheduleAdminService implements IService<ScheduleAdminDTO> {
 	private scheduleAdminRepository: IRepository<ScheduleAdminDTO>;
@@ -10,12 +10,22 @@ export class ScheduleAdminService implements IService<ScheduleAdminDTO> {
 		this.scheduleAdminRepository = scheduleAdminRepository;
 	}
 
-	async findAll(): Promise<Array<ScheduleAdminDTO> | null> {
-		return this.scheduleAdminRepository.findAll().then((data) => {
+	/**
+	 *
+	 * @param options
+	 * @returns
+	 */
+	async findAll(options?: any): Promise<Array<ScheduleAdminDTO> | null> {
+		return this.scheduleAdminRepository.findAll(options).then((data) => {
 			return data;
 		});
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @returns
+	 */
 	async findById(id_td_user: number): Promise<ScheduleAdminDTO | null> {
 		return this.scheduleAdminRepository.findById(id_td_user).then((data) => {
 			console.log(data);
@@ -23,6 +33,11 @@ export class ScheduleAdminService implements IService<ScheduleAdminDTO> {
 		});
 	}
 
+	/**
+	 *
+	 * @param t
+	 * @returns
+	 */
 	async create(
 		schedludeAdmin: ScheduleAdmin
 	): Promise<ScheduleAdminDTO | null> {
@@ -31,17 +46,23 @@ export class ScheduleAdminService implements IService<ScheduleAdminDTO> {
 		});
 	}
 
+	/**
+	 *
+	 * @param t
+	 * @returns
+	 */
 	async update(
-		schedludeAdmin: ScheduleAdmin,
-		id_td_user: number
-	): Promise<boolean | number> {
-		return this.scheduleAdminRepository
-			.update(schedludeAdmin, id_td_user)
-			.then((data) => {
-				return data;
-			});
+		schedludeAdmin: ScheduleAdmin
+	): Promise<ScheduleAdminDTO | null> {
+		return this.scheduleAdminRepository.update(schedludeAdmin).then((data) => {
+			return data;
+		});
 	}
 
+	/**
+	 *
+	 * @param id
+	 */
 	async delete(id_td_user: number): Promise<boolean | number> {
 		return this.scheduleAdminRepository
 			.delete(id_td_user)

@@ -44,8 +44,7 @@ export class AppointmentHandler {
 	updateAppointment = async (req: Request, res: Response) => {
 		try {
 			const result = await this.appointmentService.update(
-				req.body,
-				parseInt(req.params.id)
+				req.body
 			);
 			return res.status(200).json(result);
 		} catch (error) {

@@ -1,6 +1,6 @@
 import { IRepository } from "../core/respository.interface";
 import { IService } from "../core/service.interface";
-import { Appointment } from "../models/appointement.model";
+import { Appointment } from "../models/Models/appointement.model";
 import { AppointmentDTO } from "../models/DTO/appointment";
 
 export class AppointmentService implements IService<AppointmentDTO> {
@@ -10,12 +10,22 @@ export class AppointmentService implements IService<AppointmentDTO> {
 		this.appointmentRepository = appointmentRepository;
 	}
 
-	async findAll(): Promise<Array<AppointmentDTO> | null> {
-		return this.appointmentRepository.findAll().then((data) => {
+	/**
+	 *
+	 * @param options
+	 * @returns
+	 */
+	async findAll(options?: any): Promise<Array<AppointmentDTO> | null> {
+		return this.appointmentRepository.findAll(options).then((data) => {
 			return data;
 		});
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @returns
+	 */
 	async findById(id: number): Promise<AppointmentDTO | null> {
 		return this.appointmentRepository.findById(id).then((data) => {
 			console.log(data);
@@ -23,21 +33,34 @@ export class AppointmentService implements IService<AppointmentDTO> {
 		});
 	}
 
+	/**
+	 *
+	 * @param t
+	 * @returns
+	 */
 	async create(appointment: Appointment): Promise<AppointmentDTO | null> {
 		return this.appointmentRepository.create(appointment).then((data) => {
 			return data;
 		});
 	}
 
+	/**
+	 *
+	 * @param t
+	 * @returns
+	 */
 	async update(
-		appointment: Appointment,
-		id: number
-	): Promise<boolean | number> {
-		return this.appointmentRepository.update(appointment, id).then((data) => {
+		appointment: Appointment
+	): Promise<AppointmentDTO | null> {
+		return this.appointmentRepository.update(appointment).then((data) => {
 			return data;
 		});
 	}
 
+	/**
+	 *
+	 * @param id
+	 */
 	async delete(id: number): Promise<boolean | number> {
 		return this.appointmentRepository
 			.delete(id)

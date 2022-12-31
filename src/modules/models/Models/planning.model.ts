@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../sequelize";
+import sequelize from "../../../sequelize";
 
 export class Planning extends Model {
     id_planning!: number;

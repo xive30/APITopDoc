@@ -1,5 +1,5 @@
 import { HolidayDTO } from "../DTO/holiday.dto";
-import { Holiday } from "../holiday.model";
+import { Holiday } from "../Models/holiday.model";
 
 export class HolidayMapper {
 	static MapToDTO(holiday: Holiday | null): HolidayDTO {

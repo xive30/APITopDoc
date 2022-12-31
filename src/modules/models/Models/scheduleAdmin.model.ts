@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../sequelize";
+import sequelize from "../../../sequelize";
 
 export class ScheduleAdmin extends Model {
 	id_td_user!: number;

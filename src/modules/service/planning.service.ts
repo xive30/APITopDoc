@@ -1,7 +1,7 @@
 import { IRepository } from "../core/respository.interface";
 import { IService } from "../core/service.interface";
 import { PlanningDTO } from "../models/DTO/planning.dto";
-import { Planning } from "../models/planning.model";
+import { Planning } from "../models/Models/planning.model";
 
 export class PlanningService implements IService<PlanningDTO> {
 	private planningRepository: IRepository<PlanningDTO>;
@@ -10,12 +10,22 @@ export class PlanningService implements IService<PlanningDTO> {
 		this.planningRepository = planningRepository;
 	}
 
-	async findAll(): Promise<Array<PlanningDTO> | null> {
-		return this.planningRepository.findAll().then((data) => {
+	/**
+	 *
+	 * @param options
+	 * @returns
+	 */
+	async findAll(options?: any): Promise<Array<PlanningDTO> | null> {
+		return this.planningRepository.findAll(options).then((data) => {
 			return data;
 		});
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @returns
+	 */
 	async findById(id_planning: number): Promise<PlanningDTO | null> {
 		return this.planningRepository.findById(id_planning).then((data) => {
 			console.log(data);
@@ -23,23 +33,32 @@ export class PlanningService implements IService<PlanningDTO> {
 		});
 	}
 
+	/**
+	 *
+	 * @param t
+	 * @returns
+	 */
 	async create(planning: Planning): Promise<PlanningDTO | null> {
 		return this.planningRepository.create(planning).then((data) => {
 			return data;
 		});
 	}
 
-	async update(
-		planning: Planning,
-		id_planning: number
-	): Promise<boolean | number> {
-		return this.planningRepository
-			.update(planning, id_planning)
-			.then((data) => {
-				return data;
-			});
+	/**
+	 *
+	 * @param t
+	 * @returns
+	 */
+	async update(planning: Planning): Promise<PlanningDTO | null> {
+		return this.planningRepository.update(planning).then((data) => {
+			return data;
+		});
 	}
 
+	/**
+	 *
+	 * @param id
+	 */
 	async delete(id_planning: number): Promise<boolean | number> {
 		return this.planningRepository
 			.delete(id_planning)

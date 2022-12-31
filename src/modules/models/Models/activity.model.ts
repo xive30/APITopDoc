@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../sequelize";
+import sequelize from "../../../sequelize";
 
 export class Activity extends Model {
 	id_activity?: number;
@@ -9,7 +9,7 @@ export class Activity extends Model {
 	description: string;
 
 	activity_validation: boolean;
-    static id_activity: number | undefined;
+	static id_activity: number | undefined;
 }
 
 const concatRequiredMessage = (data: string) => {

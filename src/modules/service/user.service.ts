@@ -1,6 +1,6 @@
 import { UserDTO } from "../models/DTO/user.dto";
 import { IRepository } from "../core/respository.interface";
-import { User } from "../models/user.model";
+import { User } from "../models/Models/user.model";
 import { IService } from "../core/service.interface";
 
 export class UserService implements IService<UserDTO> {
@@ -10,12 +10,22 @@ export class UserService implements IService<UserDTO> {
 		this.userRepository = userRepository;
 	}
 
-	async findAll(): Promise<Array<UserDTO> | null> {
-		return this.userRepository.findAll().then((data) => {
+	/**
+	 *
+	 * @param options
+	 * @returns
+	 */
+	async findAll(options?: any): Promise<Array<UserDTO> | null> {
+		return this.userRepository.findAll(options).then((data) => {
 			return data;
 		});
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @returns
+	 */
 	async findById(id_td_user: number): Promise<UserDTO | null> {
 		return this.userRepository.findById(id_td_user).then((data) => {
 			console.log(data);
@@ -23,18 +33,33 @@ export class UserService implements IService<UserDTO> {
 		});
 	}
 
+	/**
+	 *
+	 * @param t
+	 * @returns
+	 */
 	async create(user: User): Promise<UserDTO | null> {
 		return this.userRepository.create(user).then((data) => {
 			return data;
 		});
 	}
 
-	async update(user: User, id_td_user: number): Promise<boolean | number> {
-		return this.userRepository.update(user, id_td_user).then((data) => {
+	/**
+	 *
+	 * @param t
+	 * @returns
+	 */
+	async update(user: User): Promise<UserDTO | null> {
+		return this.userRepository.update(user).then((data) => {
 			return data;
 		});
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @returns
+	 */
 	async delete(id_td_user: number): Promise<boolean | number> {
 		return this.userRepository
 			.delete(id_td_user)

@@ -12,7 +12,7 @@ export const scheduleAdminRouter = Router();
 
 /**
  * @openapi
- * /api/v1/schedule-admin:
+ * /api/v1/schedule-admins:
  *      get:
  *          tags: [ScheduleAdmin]
  *          description: liste des gestionnaires
@@ -24,7 +24,7 @@ scheduleAdminRouter.get("/", scheduleAdminHandler.getScheduleAdmins);
 
 /**
  * @openapi
- * /api/v1/schedule-admin/{id}:
+ * /api/v1/schedule-admins/{id}:
  *  get:
  *      tags: [ScheduleAdmin]
  *      description: Trouver un gestionnaire par son Id
@@ -42,7 +42,7 @@ scheduleAdminRouter.get("/:id", scheduleAdminHandler.getScheduleAdminById);
 
 /**
  * @openapi
- * /api/v1/schedule-admin:
+ * /api/v1/schedule-admins:
  *  post:
  *      tags: [ScheduleAdmin]
  *      description: Crée un gestionnaire
@@ -62,7 +62,7 @@ scheduleAdminRouter.post("/", scheduleAdminHandler.createScheduleAdmin);
 
 /**
  * @openapi
- * /api/v1/schedule-admin/{id}:
+ * /api/v1/schedule-admins/{id}:
  *  put:
  *      tags: [ScheduleAdmin]
  *      description: Modifier un gestionnaire
@@ -87,7 +87,7 @@ scheduleAdminRouter.put("/:id", scheduleAdminHandler.updateScheduleAdmin);
 
 /**
  * @openapi
- * /api/v1/schedule-admin/{id}:
+ * /api/v1/schedule-admins/{id}:
  *  delete:
  *      tags: [ScheduleAdmin]
  *      description: Supprimer un gestionnaire

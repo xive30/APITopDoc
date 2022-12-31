@@ -1,5 +1,5 @@
 import { TimetableDTO } from "../DTO/timetable.dto";
-import { Timetable } from "../timetable.model";
+import { Timetable } from "../Models/timetable.model";
 
 
 export class TimetableMapper {

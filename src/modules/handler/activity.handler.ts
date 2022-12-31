@@ -9,6 +9,11 @@ export class ActivityHandler {
 		this.activityService = activityService;
 	}
 
+	/**
+     * 
+     * @param req 
+     * @param res 
+     */
 	getActivities = async (req: Request, res: Response) => {
 		try {
 			const result = await this.activityService.findAll();
@@ -18,6 +23,7 @@ export class ActivityHandler {
 			res.status(500).json(`problème au nivau de handler : ${err}`);
 		}
 	};
+	
 	getActivityById = async (req: Request, res: Response) => {
 		try {
 			const result = await this.activityService.findById(
@@ -44,8 +50,7 @@ export class ActivityHandler {
 	updateActivity = async (req: Request, res: Response) => {
 		try {
 			const result = await this.activityService.update(
-				req.body,
-				parseInt(req.params.id)
+				req.body
 			);
 			return res.status(200).json(result);
 		} catch (error) {

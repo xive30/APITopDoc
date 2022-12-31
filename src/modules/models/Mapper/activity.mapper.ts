@@ -1,4 +1,4 @@
-import { Activity } from "../activity.model";
+import { Activity } from "../Models/activity.model";
 import { ActivityDTO } from "../DTO/activity.dto";
 
 export class ActivityMapper {

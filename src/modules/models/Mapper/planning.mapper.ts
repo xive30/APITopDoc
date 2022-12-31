@@ -1,7 +1,7 @@
 import { PlanningDTO } from "../DTO/planning.dto"
-import { Planning } from "../planning.model"
+import { Planning } from "../Models/planning.model"
 
-export class PLanningMapper {
+export class PlanningMapper {
     static MapToDTO(planning: Planning | null): PlanningDTO{
         if (planning === null) return null as any;
 

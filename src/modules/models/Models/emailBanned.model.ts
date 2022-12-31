@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../sequelize";
+import sequelize from "../../../sequelize";
 
 export class EmailBanned extends Model {
 	id_email_banned!: number;

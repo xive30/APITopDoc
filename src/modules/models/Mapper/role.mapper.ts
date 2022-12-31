@@ -1,5 +1,5 @@
 import { RoleDTO } from "../DTO/role.dto";
-import { Role } from "../role.model";
+import { Role } from "../Models/role.model";
 
 export class RoleMapper {
 	static MapToDTO(role: Role | null): RoleDTO {
