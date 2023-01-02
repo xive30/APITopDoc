@@ -1,10 +1,30 @@
-import { UserDTO } from "../Data/DTO/user.dto";
+import { UserDTO, UserLocationDTO } from "../Data/DTO/user.dto";
 import { User } from "../Data/Models/user.model";
 import { UserMapper } from "../Data/Mapper/user.mapper";
-import { IRepository } from "../core/repository.interface";
+import { IFullRepository, IRepository } from "../core/repository.interface";
 import { InputError, NotFoundError } from "../core/errors/errors";
+import { Location } from "../Data/Models/location.model";
 
-export class UserRepository implements IRepository<UserDTO> {
+export interface IUserRepository
+	extends IRepository<UserDTO>,
+		IFullRepository<UserLocationDTO> {}
+
+export class UserRepository implements IUserRepository {
+	/**
+	 *
+	 * @param filter
+	 * @returns
+	 */
+	async findAllFull(filter: any): Promise<UserLocationDTO[]> {
+		const users = await User.findAll({
+			where: filter,
+			include: Location,
+		});
+		return users.map((user) => {
+			return UserMapper.MapToFullUserDTO(user);
+		});
+	}
+
 	/**
 	 *
 	 * @param id

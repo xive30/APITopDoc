@@ -1,4 +1,4 @@
-import { IRepository } from "../core/repository.interface";
+import { IFullRepository, IRepository } from "../core/repository.interface";
 import { PatientMapper } from "../Data/Mapper/patient.mapper";
 import { Patient } from "../Data/Models/patient.model";
 import { PatientDTO, PatientUserDTO } from "../Data/DTO/patient.dto";
@@ -6,7 +6,31 @@ import { InputError, NotFoundError } from "../core/errors/errors";
 import { User } from "../Data/Models/user.model";
 import sequelize from "~/Database/sequelize";
 
-export class PatientRepository implements IRepository<PatientDTO> {
+export interface IPatientRepository
+	extends IRepository<PatientDTO>,
+		IFullRepository<PatientUserDTO> {}
+
+export class PatientRepository implements IPatientRepository {
+	/**
+	 *
+	 * @param filter
+	 * @returns
+	 */
+	async findAllFull(filter: any): Promise<PatientUserDTO[]> {
+		const patients = await Patient.findAll({
+			where: filter,
+			include: User,
+		});
+
+		try {
+			return patients.map((patient) => {
+				return PatientMapper.MapToFullPatientDTO(patient);
+			});
+		} catch (error) {
+			throw new Error();
+		}
+	}
+
 	/**
 	 *
 	 * @param id
@@ -23,19 +47,14 @@ export class PatientRepository implements IRepository<PatientDTO> {
 	 * @param filter
 	 * @returns
 	 */
-	async findAll(filter: any): Promise<PatientUserDTO[]> {
-		const patients = await Patient.findAll({
+	async findAll(filter: any): Promise<Array<PatientDTO>> {
+		return Patient.findAll({
 			where: filter,
-			include: User,
-		});
-
-		try {
-			return patients.map((patient) => {
-				return PatientMapper.MapToFullDTO(patient);
+		}).then((data: Array<Patient>) => {
+			return data.map((patient: Patient) => {
+				return PatientMapper.MapToDTO(patient);
 			});
-		} catch (error) {
-			throw new Error();
-		}
+		});
 	}
 
 	/**

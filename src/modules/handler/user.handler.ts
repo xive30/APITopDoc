@@ -2,13 +2,14 @@ import { Request, Response } from "express";
 import { logger } from "~/winston.logger";
 import { IService } from "../core/service.interface";
 import { UserDTO } from "../Data/DTO/user.dto";
+import { IUserService } from "../service/user.service";
 
 const bcrypt = require("bcrypt");
 
 export class UserHandler {
-	private userService: IService<UserDTO>;
+	private userService: IUserService;
 
-	constructor(userService: IService<UserDTO>) {
+	constructor(userService: IUserService) {
 		this.userService = userService;
 	}
 
@@ -20,7 +21,7 @@ export class UserHandler {
 	 */
 	getUsers = async (req: Request, res: Response) => {
 		try {
-			const result = await this.userService.findAll();
+			const result = await this.userService.findAllFull();
 			if (result === null) return res.status(404).send();
 			res.status(200).json(result);
 		} catch (err) {

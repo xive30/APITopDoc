@@ -1,13 +1,29 @@
-import { UserDTO } from "../Data/DTO/user.dto";
+import { UserDTO, UserLocationDTO } from "../Data/DTO/user.dto";
 import { IRepository } from "../core/repository.interface";
 import { User } from "../Data/Models/user.model";
-import { IService } from "../core/service.interface";
+import { IFullService, IService } from "../core/service.interface";
+import { IUserRepository } from "../repository/user.repository";
 
-export class UserService implements IService<UserDTO> {
-	private userRepository: IRepository<UserDTO>;
+export interface IUserService
+	extends IService<UserDTO>,
+		IFullService<UserLocationDTO> {}
 
-	constructor(userRepository: IRepository<UserDTO>) {
+export class UserService implements IUserService {
+	private userRepository: IUserRepository;
+
+	constructor(userRepository: IUserRepository) {
 		this.userRepository = userRepository;
+	}
+
+	/**
+	 *
+	 * @param options
+	 * @returns
+	 */
+	async findAllFull(options?: any): Promise<Array<UserLocationDTO> | null> {
+		return this.userRepository.findAllFull(options).then((data) => {
+			return data;
+		});
 	}
 
 	/**

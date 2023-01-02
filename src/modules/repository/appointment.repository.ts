@@ -1,5 +1,5 @@
 import { Appointment } from "../Data/Models/appointement.model";
-import { AppointmentDTO } from "../Data/DTO/appointment";
+import { AppointmentDTO } from "../Data/DTO/appointment.dto";
 import { AppointmentMapper } from "../Data/Mapper/appointment.mapper";
 import { IRepository } from "../core/repository.interface";
 import { InputError, NotFoundError } from "../core/errors/errors";

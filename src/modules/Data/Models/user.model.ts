@@ -17,7 +17,9 @@ export class User extends Model {
 	password!: string;
 
 	phone!: number;
-	static id_td_user: any;
+
+	id_location: number;
+	static id_td_user: number | undefined;
 }
 
 const concatRequiredMessage = (data: string) => {

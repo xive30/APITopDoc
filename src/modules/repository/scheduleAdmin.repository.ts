@@ -4,12 +4,34 @@ import {
 } from "../Data/DTO/schedludeAdmin.dto";
 import { ScheduleAdmin } from "../Data/Models/scheduleAdmin.model";
 import { ScheduleAdminMapper } from "../Data/Mapper/scheduleAdmin.mapper";
-import { IRepository } from "../core/repository.interface";
+import { IFullRepository, IRepository } from "../core/repository.interface";
 import { InputError, NotFoundError } from "../core/errors/errors";
 import { User } from "../Data/Models/user.model";
 import sequelize from "~/Database/sequelize";
 
-export class ScheduleAdminRepository implements IRepository<ScheduleAdminDTO> {
+export interface ISAdminRepository extends IRepository<ScheduleAdminDTO>, IFullRepository<ScheduleAdminUserDTO> {}
+
+export class ScheduleAdminRepository implements ISAdminRepository {
+	/**
+	 *
+	 * @param filter
+	 * @returns
+	 */
+	async findAllFull(filter: any): Promise<ScheduleAdminUserDTO[]> {
+		const scheduleAdmins = await ScheduleAdmin.findAll({
+			where: filter,
+			include: User,
+		});
+
+		try {
+			return scheduleAdmins.map((ScheduleAdmin) => {
+				return ScheduleAdminMapper.MapToFullSAdminDTO(ScheduleAdmin);
+			});
+		} catch (error) {
+			throw new Error();
+		}
+	}
+	
 	/**
 	 *
 	 * @param id
@@ -18,7 +40,7 @@ export class ScheduleAdminRepository implements IRepository<ScheduleAdminDTO> {
 	async findById(id: number): Promise<ScheduleAdminDTO | null> {
 		const result = await ScheduleAdmin.findByPk(id);
 		if (result === null) throw new NotFoundError("ScheduleAdmin not found");
-		return ScheduleAdminMapper.MapToOnlyDTO(result);
+		return ScheduleAdminMapper.MapToDTO(result);
 	}
 
 	/**
@@ -31,7 +53,7 @@ export class ScheduleAdminRepository implements IRepository<ScheduleAdminDTO> {
 			where: filter,
 		}).then((data: Array<ScheduleAdmin>) => {
 			return data.map((scheduleAdmin: ScheduleAdmin) => {
-				return ScheduleAdminMapper.MapToOnlyDTO(scheduleAdmin);
+				return ScheduleAdminMapper.MapToDTO(scheduleAdmin);
 			});
 		});
 	}
@@ -102,7 +124,7 @@ export class ScheduleAdminRepository implements IRepository<ScheduleAdminDTO> {
 		if (row === null) throw new NotFoundError("scheduleAdmin not found");
 
 		const result = await row.save();
-		return ScheduleAdminMapper.MapToOnlyDTO(result);
+		return ScheduleAdminMapper.MapToDTO(result);
 	}
 
 	/**

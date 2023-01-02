@@ -1,17 +1,18 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
 import { ScheduleAdminDTO } from "../Data/DTO/schedludeAdmin.dto";
+import { ISAdminService } from "../service/scheduleAdmin.service";
 
 export class ScheduleAdminHandler {
-	private scheduleAdminService: IService<ScheduleAdminDTO>;
+	private scheduleAdminService: ISAdminService;
 
-	constructor(scheduleAdminService: IService<ScheduleAdminDTO>) {
+	constructor(scheduleAdminService: ISAdminService) {
 		this.scheduleAdminService = scheduleAdminService;
 	}
 
 	getScheduleAdmins = async (req: Request, res: Response) => {
 		try {
-			const result = await this.scheduleAdminService.findAll();
+			const result = await this.scheduleAdminService.findAllFull();
 			if (result === null) return res.status(404).send();
 			res.status(200).json(result);
 		} catch (err) {

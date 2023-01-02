@@ -1,7 +1,11 @@
 export interface IRepository<T> {
 	findById(id: number): Promise<T | null>;
-	findAll(options? : any): Promise<T[]>;
+	findAll(options?: any): Promise<T[]>;
 	create(t: T): Promise<T>;
 	update(t: T): Promise<T>;
 	delete(id: number): Promise<boolean | number>;
+}
+
+export interface IFullRepository<T> {
+	findAllFull(options?: any): Promise<T[]>;
 }

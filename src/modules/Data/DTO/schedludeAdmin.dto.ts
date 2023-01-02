@@ -1,7 +1,7 @@
 export interface ScheduleAdminUserDTO {
-    id_td_user?: number;
+	id_td_user?: number;
 
-    firstname: string;
+	firstname: string;
 
 	lastname: string;
 
@@ -12,16 +12,16 @@ export interface ScheduleAdminUserDTO {
 	email: string;
 
 	phone: number;
-    
-    practitioner: boolean;
+
+	practitioner: boolean;
 }
 
-export interface ScheduleAdminDTO{
-    id_td_user?: number;
+export interface ScheduleAdminDTO {
+	id_td_user?: number;
 
-    practitioner: boolean;
+	practitioner: boolean;
 }
 
 export interface ScheduleAdminFilterDTO {
-    practitioner: boolean;
+	practitioner: boolean;
 }

@@ -1,12 +1,20 @@
 import { IRepository } from "../core/repository.interface";
-import { IService } from "../core/service.interface";
-import { ScheduleAdminDTO } from "../Data/DTO/schedludeAdmin.dto";
+import { IFullService, IService } from "../core/service.interface";
+import {
+	ScheduleAdminDTO,
+	ScheduleAdminUserDTO,
+} from "../Data/DTO/schedludeAdmin.dto";
 import { ScheduleAdmin } from "../Data/Models/scheduleAdmin.model";
+import { ISAdminRepository } from "../repository/scheduleAdmin.repository";
 
-export class ScheduleAdminService implements IService<ScheduleAdminDTO> {
-	private scheduleAdminRepository: IRepository<ScheduleAdminDTO>;
+export interface ISAdminService
+	extends IService<ScheduleAdminDTO>,
+		IFullService<ScheduleAdminUserDTO> {}
 
-	constructor(scheduleAdminRepository: IRepository<ScheduleAdminDTO>) {
+export class ScheduleAdminService implements ISAdminService {
+	private scheduleAdminRepository: ISAdminRepository;
+
+	constructor(scheduleAdminRepository: ISAdminRepository) {
 		this.scheduleAdminRepository = scheduleAdminRepository;
 	}
 
@@ -15,8 +23,10 @@ export class ScheduleAdminService implements IService<ScheduleAdminDTO> {
 	 * @param options
 	 * @returns
 	 */
-	async findAll(options?: any): Promise<Array<ScheduleAdminDTO> | null> {
-		return this.scheduleAdminRepository.findAll(options).then((data) => {
+	async findAllFull(
+		options?: any
+	): Promise<Array<ScheduleAdminUserDTO> | null> {
+		return this.scheduleAdminRepository.findAllFull(options).then((data) => {
 			return data;
 		});
 	}
@@ -29,6 +39,17 @@ export class ScheduleAdminService implements IService<ScheduleAdminDTO> {
 	async findById(id_td_user: number): Promise<ScheduleAdminDTO | null> {
 		return this.scheduleAdminRepository.findById(id_td_user).then((data) => {
 			console.log(data);
+			return data;
+		});
+	}
+
+	/**
+	 *
+	 * @param options
+	 * @returns
+	 */
+	async findAll(options?: any): Promise<Array<ScheduleAdminDTO> | null> {
+		return this.scheduleAdminRepository.findAll(options).then((data) => {
 			return data;
 		});
 	}

@@ -5,3 +5,7 @@ export interface IService<T> {
 	update(t: T): Promise<T | null>;
 	delete(id: number): Promise<boolean | number>;
 }
+
+export interface IFullService<T> {
+	findAllFull(): Promise<T[] | null>;
+}

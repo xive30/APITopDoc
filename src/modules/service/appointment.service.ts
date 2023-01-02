@@ -1,7 +1,7 @@
 import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
 import { Appointment } from "../Data/Models/appointement.model";
-import { AppointmentDTO } from "../Data/DTO/appointment";
+import { AppointmentDTO } from "../Data/DTO/appointment.dto";
 
 export class AppointmentService implements IService<AppointmentDTO> {
 	private appointmentRepository: IRepository<AppointmentDTO>;

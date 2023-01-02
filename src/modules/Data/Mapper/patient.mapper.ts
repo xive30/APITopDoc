@@ -12,24 +12,23 @@ export class PatientMapper {
 		return DTO;
 	}
 
-	static MapToFullDTO(patient: Patient | null): PatientUserDTO {
+	static MapToFullPatientDTO(patient: Patient | null): PatientUserDTO {
 		if (patient === null) return null as any;
-		let DTO: PatientUserDTO ;
+		let DTO: PatientUserDTO;
 		try {
 			DTO = {
 				id_td_user: patient.get("id_td_user"),
-				firstname: patient.get({plain: true}).td_user.firstname,
-				lastname: patient.get({plain: true}).td_user.lastname,
-				gender: patient.get({plain: true}).td_user.gender,
-				birthday: patient.get({plain: true}).td_user.birthday,
-				email: patient.get({plain: true}).td_user.email,
-				phone: patient.get({plain: true}).td_user.phone,
+				firstname: patient.get({ plain: true }).td_user.firstname,
+				lastname: patient.get({ plain: true }).td_user.lastname,
+				gender: patient.get({ plain: true }).td_user.gender,
+				birthday: patient.get({ plain: true }).td_user.birthday,
+				email: patient.get({ plain: true }).td_user.email,
+				phone: patient.get({ plain: true }).td_user.phone,
 				secu_number_fr_fr: patient.secu_number_fr_fr,
 			};
-			
 		} catch (error) {
 			console.log(error);
-			throw new Error;
+			throw new Error();
 		}
 		return DTO;
 	}

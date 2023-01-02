@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { AppointmentDTO } from "../Data/DTO/appointment";
+import { AppointmentDTO } from "../Data/DTO/appointment.dto";
 
 export class AppointmentHandler {
 	private appointmentService: IService<AppointmentDTO>;
