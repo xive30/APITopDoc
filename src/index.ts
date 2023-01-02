@@ -6,6 +6,7 @@ import unexpectedErrorMiddleware from './api/middlewares/error.global'
 import helmet from 'helmet'
 import { logger } from './winston.logger'
 import swaggerUi from 'swagger-ui-express';
+import { relations } from './Database/relations'
 const swaggerJsDoc = require('swagger-jsdoc')
 
 dotenv.config()
@@ -21,6 +22,7 @@ app.use(cors())
 app.use(apiRouter)
 
 app.use(unexpectedErrorMiddleware)
+relations()
 
 app.listen(process.env.PORT, () => logger.info(`Running at port ${process.env.PORT}`))
 

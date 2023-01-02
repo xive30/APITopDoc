@@ -1,7 +1,7 @@
-import { IRepository } from "../core/respository.interface";
+import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { PatientDTO } from "../models/DTO/patient.dto";
-import { Patient } from "../models/Models/patient.model";
+import { PatientDTO, PatientUserDTO } from "../Data/DTO/patient.dto";
+import { Patient } from "../Data/Models/patient.model";
 
 export class PatientService implements IService<PatientDTO> {
 	private patientRepository: IRepository<PatientDTO>;
@@ -15,9 +15,9 @@ export class PatientService implements IService<PatientDTO> {
 	 * @param options
 	 * @returns
 	 */
-	async findAll(options?: any): Promise<Array<PatientDTO> | null> {
+	async findAll(options?: any): Promise<Array<PatientUserDTO> | null> {
 		return this.patientRepository.findAll(options).then((data) => {
-			return data;
+			return null;
 		});
 	}
 

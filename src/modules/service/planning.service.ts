@@ -1,7 +1,7 @@
-import { IRepository } from "../core/respository.interface";
+import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { PlanningDTO } from "../models/DTO/planning.dto";
-import { Planning } from "../models/Models/planning.model";
+import { PlanningDTO } from "../Data/DTO/planning.dto";
+import { Planning } from "../Data/Models/planning.model";
 
 export class PlanningService implements IService<PlanningDTO> {
 	private planningRepository: IRepository<PlanningDTO>;

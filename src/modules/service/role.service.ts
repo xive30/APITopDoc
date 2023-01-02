@@ -1,7 +1,7 @@
-import { IRepository } from "../core/respository.interface";
+import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { RoleDTO } from "../models/DTO/role.dto";
-import { Role } from "../models/Models/role.model";
+import { RoleDTO } from "../Data/DTO/role.dto";
+import { Role } from "../Data/Models/role.model";
 
 export class RoleService implements IService<RoleDTO> {
 	private roleRepository: IRepository<RoleDTO>;

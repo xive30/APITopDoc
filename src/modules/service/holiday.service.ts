@@ -1,7 +1,7 @@
-import { IRepository } from "../core/respository.interface";
+import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { HolidayDTO } from "../models/DTO/holiday.dto";
-import { Holiday } from "../models/Models/holiday.model";
+import { HolidayDTO } from "../Data/DTO/holiday.dto";
+import { Holiday } from "../Data/Models/holiday.model";
 
 export class HolidayService implements IService<HolidayDTO> {
 	private holidayRepository: IRepository<HolidayDTO>;

@@ -1,11 +1,10 @@
 import { InputError, NotFoundError } from "../core/errors/errors";
-import { IRepository } from "../core/respository.interface";
-import { RoleDTO } from "../models/DTO/role.dto";
-import { RoleMapper } from "../models/Mapper/role.mapper";
-import { Role } from "../models/Models/role.model";
+import { IRepository } from "../core/repository.interface";
+import { RoleDTO } from "../Data/DTO/role.dto";
+import { RoleMapper } from "../Data/Mapper/role.mapper";
+import { Role } from "../Data/Models/role.model";
 
 export class RoleRepository implements IRepository<RoleDTO> {
-
 	/**
 	 *
 	 * @param id
@@ -13,8 +12,8 @@ export class RoleRepository implements IRepository<RoleDTO> {
 	 */
 	async findById(id: number): Promise<RoleDTO | null> {
 		const result = await Role.findByPk(id);
-        if (result === null) throw new NotFoundError("Role not found");
-        return RoleMapper.MapToDTO(result);
+		if (result === null) throw new NotFoundError("Role not found");
+		return RoleMapper.MapToDTO(result);
 	}
 
 	/**
@@ -24,7 +23,7 @@ export class RoleRepository implements IRepository<RoleDTO> {
 	 */
 	async findAll(filter: any): Promise<Array<RoleDTO>> {
 		return Role.findAll({
-			where: filter
+			where: filter,
 		}).then((data: Array<Role>) => {
 			return data.map((role: Role) => {
 				return RoleMapper.MapToDTO(role);
@@ -33,9 +32,9 @@ export class RoleRepository implements IRepository<RoleDTO> {
 	}
 
 	/**
-     * 
-     * @param role
-     */
+	 *
+	 * @param role
+	 */
 	async create(role: Partial<RoleDTO>): Promise<RoleDTO> {
 		return Role.create(role).then((data: Role) => {
 			return RoleMapper.MapToDTO(data);
@@ -43,18 +42,18 @@ export class RoleRepository implements IRepository<RoleDTO> {
 	}
 
 	/**
-     * 
-     * @param role
-     */
+	 *
+	 * @param role
+	 */
 	async update(role: Role): Promise<RoleDTO> {
 		if (role.id_role === null) throw new InputError("No id for role");
-    
+
 		const row = await Role.findByPk(role.id_role);
 
 		if (row === null) throw new NotFoundError("role not found");
 
-		const result = await row.save()
-		return RoleMapper.MapToDTO(result) ;
+		const result = await row.save();
+		return RoleMapper.MapToDTO(result);
 	}
 
 	/**

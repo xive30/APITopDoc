@@ -1,7 +1,7 @@
-import { ActivityDTO } from "../models/DTO/activity.dto";
-import { Activity } from "../models/Models/activity.model";
-import { ActivityMapper } from "../models/Mapper/activity.mapper";
-import { IRepository } from "../core/respository.interface";
+import { ActivityDTO } from "../Data/DTO/activity.dto";
+import { Activity } from "../Data/Models/activity.model";
+import { ActivityMapper } from "../Data/Mapper/activity.mapper";
+import { IRepository } from "../core/repository.interface";
 import { InputError, NotFoundError } from "../core/errors/errors";
 
 export class ActivityRepository implements IRepository<ActivityDTO> {

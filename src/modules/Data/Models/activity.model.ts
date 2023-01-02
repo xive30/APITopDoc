@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../../sequelize";
+import sequelize from "../../../Database/sequelize";
 
 export class Activity extends Model {
 	id_activity?: number;

@@ -1,108 +1,113 @@
-import { IRepository } from "../core/respository.interface";
-import { PatientMapper } from "../models/Mapper/patient.mapper";
-import { Patient } from "../models/Models/patient.model";
-import { PatientDTO, PatientUserDTO } from "../models/DTO/patient.dto"
+import { IRepository } from "../core/repository.interface";
+import { PatientMapper } from "../Data/Mapper/patient.mapper";
+import { Patient } from "../Data/Models/patient.model";
+import { PatientDTO, PatientUserDTO } from "../Data/DTO/patient.dto";
 import { InputError, NotFoundError } from "../core/errors/errors";
-import { User } from "../models/Models/user.model";
-import sequelize from "~/sequelize";
+import { User } from "../Data/Models/user.model";
+import sequelize from "~/Database/sequelize";
 
 export class PatientRepository implements IRepository<PatientDTO> {
-
 	/**
-     * 
-     * @param id 
-     * @returns 
-     */
+	 *
+	 * @param id
+	 * @returns
+	 */
 	async findById(id: number): Promise<PatientDTO | null> {
 		const result = await Patient.findByPk(id);
-        if (result === null) throw new NotFoundError("Patient not found");
-        return PatientMapper.MapToOnlyDTO(result);
+		if (result === null) throw new NotFoundError("Patient not found");
+		return PatientMapper.MapToDTO(result);
 	}
 
 	/**
-     * 
-     * @param filter 
-     * @returns 
-     */
-	async findAll(filter: any): Promise<Array<PatientDTO>> {
-		return Patient.findAll({
-			where: filter
-		}).then((data: Array<Patient>) => {
-			return data.map((patient: Patient) => {
-				return PatientMapper.MapToOnlyDTO(patient);
-			});
+	 *
+	 * @param filter
+	 * @returns
+	 */
+	async findAll(filter: any): Promise<PatientUserDTO[]> {
+		const patients = await Patient.findAll({
+			where: filter,
+			include: User,
 		});
+
+		try {
+			return patients.map((patient) => {
+				return PatientMapper.MapToFullDTO(patient);
+			});
+		} catch (error) {
+			throw new Error();
+		}
 	}
 
 	/**
-     * 
-     * @param patient
-     */
+	 *
+	 * @param patient
+	 */
 	async create(patient: Partial<PatientUserDTO>): Promise<PatientUserDTO> {
 		const t = await sequelize.transaction();
 
-        try {
-            const newUser = await User.create(
-                {
-                    firstname: patient.firstname,
+		try {
+			const newUser = await User.create(
+				{
+					firstname: patient.firstname,
 					lastname: patient.lastname,
 					gender: patient.gender,
 					birthday: patient.birthday,
 					email: patient.email,
 					phone: patient.phone,
-                },
-                {
-                    transaction: t
-                }
-            );
+				},
+				{
+					transaction: t,
+				}
+			);
 
-            const newPatient = await Patient.create({
-                id_td_user: newUser.id_td_user,
-                secu_number_fr_fr: patient.secu_number_fr_fr
-            },
-                {
-                    transaction: t
-                }
-            );
+			const newPatient = await Patient.create(
+				{
+					id_td_user: newUser.id_td_user,
+					secu_number_fr_fr: patient.secu_number_fr_fr,
+				},
+				{
+					transaction: t,
+				}
+			);
 
-            const result: PatientUserDTO = {
-                id_td_user: newUser.id_td_user,
-                firstname: newUser.firstname,
-					lastname: newUser.lastname,
-					gender: newUser.gender,
-					birthday: newUser.birthday,
-					email: newUser.email,
-					phone: newUser.phone,
-                secu_number_fr_fr: newPatient.secu_number_fr_fr
-            }
+			const result: PatientUserDTO = {
+				id_td_user: newUser.id_td_user,
+				firstname: newUser.firstname,
+				lastname: newUser.lastname,
+				gender: newUser.gender,
+				birthday: newUser.birthday,
+				email: newUser.email,
+				phone: newUser.phone,
+				secu_number_fr_fr: newPatient.secu_number_fr_fr,
+			};
 
-            await t.commit();
-            return result;
-        } catch (err) {
-            await t.rollback()
-            throw err;
-        }
+			await t.commit();
+			return result;
+		} catch (err) {
+			await t.rollback();
+			throw err;
+		}
 	}
 
 	/**
-     * 
-     * @param patient
-     */
+	 *
+	 * @param patient
+	 */
 	async update(patient: Patient): Promise<PatientDTO> {
 		if (patient.id_td_user === null) throw new InputError("No id for patient");
-    
+
 		const row = await Patient.findByPk(patient.id_td_user);
 
 		if (row === null) throw new NotFoundError("patient not found");
 
-		const result = await row.save()
-		return PatientMapper.MapToOnlyDTO(result) ;
+		const result = await row.save();
+		return PatientMapper.MapToDTO(result);
 	}
 
 	/**
-     * 
-     * @param id
-     */
+	 *
+	 * @param id
+	 */
 	async delete(id: number): Promise<boolean | number> {
 		return Patient.destroy({ where: { id_td_user: id } }).then(
 			(data: boolean | number) => {

@@ -1,5 +1,5 @@
-import { IRepository } from "~/modules/core/respository.interface";
-import { UserDTO } from "../../models/DTO/user.dto";
+import { IRepository } from "~/modules/core/repository.interface";
+import { UserDTO } from "../../Data/DTO/user.dto";
 import { UserService } from "../user.service";
 
 describe("UserService", () => {

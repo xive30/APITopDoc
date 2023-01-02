@@ -1,6 +1,6 @@
-import { UserDTO } from "../models/DTO/user.dto";
-import { IRepository } from "../core/respository.interface";
-import { User } from "../models/Models/user.model";
+import { UserDTO } from "../Data/DTO/user.dto";
+import { IRepository } from "../core/repository.interface";
+import { User } from "../Data/Models/user.model";
 import { IService } from "../core/service.interface";
 
 export class UserService implements IService<UserDTO> {

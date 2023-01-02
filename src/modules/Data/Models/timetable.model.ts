@@ -1,14 +1,14 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../../sequelize";
+import sequelize from "../../../Database/sequelize";
 
 export class Timetable extends Model {
 	id_timetable!: number;
 
 	td_day: string;
 
-    timetable_start: Date;
-    
-    timetable_end: Date;
+	timetable_start: Date;
+
+	timetable_end: Date;
 
 	duration: number;
 }
@@ -33,29 +33,29 @@ Timetable.init(
 			},
 		},
 		timetable_start: {
-            type: DataTypes.DATEONLY,
+			type: DataTypes.DATEONLY,
 			allowNull: false,
 			validate: {
-                // notNull: { msg: concatRequiredMessage('Horaire de fin') },
+				// notNull: { msg: concatRequiredMessage('Horaire de fin') },
 				notEmpty: { msg: concatRequiredMessage("Horaire de début") },
 			},
 		},
 		timetable_end: {
-            type: DataTypes.DATEONLY,
+			type: DataTypes.DATEONLY,
 			allowNull: false,
 			validate: {
-                // notNull: { msg: concatRequiredMessage('Horaire de fin') },
+				// notNull: { msg: concatRequiredMessage('Horaire de fin') },
 				notEmpty: { msg: concatRequiredMessage("Horaire de début") },
 			},
 		},
-        duration: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-                // notNull: { msg: concatRequiredMessage('Jour') },
-                notEmpty: { msg: concatRequiredMessage("Jour") },
-            },
-        },
+		duration: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			validate: {
+				// notNull: { msg: concatRequiredMessage('Jour') },
+				notEmpty: { msg: concatRequiredMessage("Jour") },
+			},
+		},
 	},
 	{
 		sequelize,

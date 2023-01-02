@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { EmailBannedDTO } from "../models/DTO/emailBanned.dto";
+import { EmailBannedDTO } from "../Data/DTO/emailBanned.dto";
 
 export class EmailBannedHandler {
 	private emailBannedService: IService<EmailBannedDTO>;
@@ -43,9 +43,7 @@ export class EmailBannedHandler {
 
 	updateEmailBanned = async (req: Request, res: Response) => {
 		try {
-			const result = await this.emailBannedService.update(
-				req.body
-			);
+			const result = await this.emailBannedService.update(req.body);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);
@@ -54,7 +52,9 @@ export class EmailBannedHandler {
 
 	deleteEmailBanned = async (req: Request, res: Response) => {
 		try {
-			const result = await this.emailBannedService.delete(parseInt(req.params.id));
+			const result = await this.emailBannedService.delete(
+				parseInt(req.params.id)
+			);
 			return res
 				.status(200)
 				.json(result ? " Email Banni supprimé" : "Email Banni Non Supprimé");

@@ -1,14 +1,14 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../../sequelize";
+import sequelize from "../../../Database/sequelize";
 
 export class Location extends Model {
-    id_location!: number;
+	id_location!: number;
 
-    address!: string;
+	address!: string;
 
-    zip_code!: string;
+	zip_code!: string;
 
-    city!: string;
+	city!: string;
 }
 
 const concatRequiredMessage = (data: string) => {
@@ -22,7 +22,7 @@ Location.init(
 			autoIncrement: true,
 			primaryKey: true,
 		},
-        address: {
+		address: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
@@ -30,7 +30,7 @@ Location.init(
 				notEmpty: { msg: concatRequiredMessage("Adresse") },
 			},
 		},
-        zip_code: {
+		zip_code: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
@@ -38,7 +38,7 @@ Location.init(
 				notEmpty: { msg: concatRequiredMessage("Code Postal") },
 			},
 		},
-        city: {
+		city: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
@@ -46,7 +46,7 @@ Location.init(
 				notEmpty: { msg: concatRequiredMessage("Ville") },
 			},
 		},
-    },
+	},
 	{
 		sequelize,
 		modelName: "td_location",

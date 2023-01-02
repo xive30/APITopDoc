@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../../sequelize";
+import sequelize from "../../../Database/sequelize";
 
 export class Patient extends Model {
 	id_td_user!: number;

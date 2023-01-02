@@ -6,8 +6,8 @@ export class HolidayMapper {
 		if (holiday === null) return null as any;
 
 		const DTO: HolidayDTO = {
-            start_date: holiday.start_date,
-            end_date: holiday.end_date,
+			start_date: holiday.start_date,
+			end_date: holiday.end_date,
 		};
 		return DTO;
 	}

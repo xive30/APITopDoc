@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../../sequelize";
+import sequelize from "../../../Database/sequelize";
 
 export class Role extends Model {
 	id_role!: number;
@@ -17,7 +17,6 @@ Role.init(
 		name_role: {
 			type: DataTypes.STRING,
 		},
-
 	},
 	{
 		sequelize,

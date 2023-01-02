@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { AppointmentDTO } from "../models/DTO/appointment";
+import { AppointmentDTO } from "../Data/DTO/appointment";
 
 export class AppointmentHandler {
 	private appointmentService: IService<AppointmentDTO>;
@@ -43,9 +43,7 @@ export class AppointmentHandler {
 
 	updateAppointment = async (req: Request, res: Response) => {
 		try {
-			const result = await this.appointmentService.update(
-				req.body
-			);
+			const result = await this.appointmentService.update(req.body);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

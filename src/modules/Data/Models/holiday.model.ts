@@ -1,12 +1,12 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../../sequelize";
+import sequelize from "../../../Database/sequelize";
 
 export class Holiday extends Model {
 	id_holiday!: number;
 
-    start_date: Date;
-    
-    end_date: Date;
+	start_date: Date;
+
+	end_date: Date;
 }
 
 const concatRequiredMessage = (data: string) => {
@@ -14,33 +14,33 @@ const concatRequiredMessage = (data: string) => {
 };
 
 Holiday.init(
-    {
-        id_holiday: {
-            type: DataTypes.INTEGER,
+	{
+		id_holiday: {
+			type: DataTypes.INTEGER,
 			autoIncrement: true,
 			primaryKey: true,
-        },
-        start_date: {
-            type: DataTypes.DATEONLY,
-            allowNull: false,
+		},
+		start_date: {
+			type: DataTypes.DATEONLY,
+			allowNull: false,
 			validate: {
 				// notNull: { msg: concatRequiredMessage('Date de Début des Vacances') },
 				notEmpty: { msg: concatRequiredMessage("Date de Début des Vacances") },
 			},
-        },
-        end_date: {
-            type: DataTypes.DATEONLY,
-            allowNull: false,
+		},
+		end_date: {
+			type: DataTypes.DATEONLY,
+			allowNull: false,
 			validate: {
 				// notNull: { msg: concatRequiredMessage('Date de fin des vacances') },
 				notEmpty: { msg: concatRequiredMessage("Date de fin des vacances") },
 			},
-        },
-    },
-    {
+		},
+	},
+	{
 		sequelize,
 		modelName: "td_holiday",
 		timestamps: false,
 		freezeTableName: true,
-    }
-)
+	}
+);

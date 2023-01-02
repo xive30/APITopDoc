@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { logger } from "~/winston.logger";
 import { IService } from "../core/service.interface";
-import { UserDTO } from "../models/DTO/user.dto";
+import { UserDTO } from "../Data/DTO/user.dto";
 
 const bcrypt = require("bcrypt");
 
@@ -57,9 +57,7 @@ export class UserHandler {
 				let hashedPassword = await bcrypt.hash(req.body.password, 10);
 				req.body = { ...req.body, password: hashedPassword };
 			}
-			const result = await this.userService.update(
-				req.body
-			);
+			const result = await this.userService.update(req.body);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

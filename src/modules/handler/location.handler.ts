@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { LocationDTO } from "../models/DTO/location.dto";
+import { LocationDTO } from "../Data/DTO/location.dto";
 
 export class LocationHandler {
 	private locationService: IService<LocationDTO>;
@@ -43,9 +43,7 @@ export class LocationHandler {
 
 	updateLocation = async (req: Request, res: Response) => {
 		try {
-			const result = await this.locationService.update(
-				req.body
-			);
+			const result = await this.locationService.update(req.body);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

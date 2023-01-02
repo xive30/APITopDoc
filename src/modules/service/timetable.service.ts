@@ -1,7 +1,7 @@
-import { IRepository } from "../core/respository.interface";
+import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { TimetableDTO } from "../models/DTO/timetable.dto";
-import { Timetable } from "../models/Models/timetable.model";
+import { TimetableDTO } from "../Data/DTO/timetable.dto";
+import { Timetable } from "../Data/Models/timetable.model";
 
 export class TimetableService implements IService<TimetableDTO> {
 	private timetableRepository: IRepository<TimetableDTO>;

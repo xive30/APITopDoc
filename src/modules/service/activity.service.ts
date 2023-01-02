@@ -1,7 +1,7 @@
-import { IRepository } from "../core/respository.interface";
+import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { Activity } from "../models/Models/activity.model";
-import { ActivityDTO } from "../models/DTO/activity.dto";
+import { Activity } from "../Data/Models/activity.model";
+import { ActivityDTO } from "../Data/DTO/activity.dto";
 
 export class ActivityService implements IService<ActivityDTO> {
 	private activityRepository: IRepository<ActivityDTO>;

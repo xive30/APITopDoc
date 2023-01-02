@@ -1,7 +1,7 @@
-import { IRepository } from "../core/respository.interface";
+import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { ScheduleAdminDTO } from "../models/DTO/schedludeAdmin.dto";
-import { ScheduleAdmin } from "../models/Models/scheduleAdmin.model";
+import { ScheduleAdminDTO } from "../Data/DTO/schedludeAdmin.dto";
+import { ScheduleAdmin } from "../Data/Models/scheduleAdmin.model";
 
 export class ScheduleAdminService implements IService<ScheduleAdminDTO> {
 	private scheduleAdminRepository: IRepository<ScheduleAdminDTO>;

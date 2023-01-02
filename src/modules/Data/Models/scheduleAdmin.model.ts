@@ -1,11 +1,11 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../../../sequelize";
+import sequelize from "../../../Database/sequelize";
 
 export class ScheduleAdmin extends Model {
 	id_td_user!: number;
 
 	secu_number_fr_fr: string;
-    practitioner: boolean;
+	practitioner: boolean;
 }
 
 ScheduleAdmin.init(

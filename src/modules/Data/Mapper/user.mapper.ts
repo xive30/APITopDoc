@@ -8,7 +8,7 @@ export class UserMapper {
 		const DTO: UserDTO = {
 			firstname: user.firstname,
 			lastname: user.lastname,
-            gender: user.gender,
+			gender: user.gender,
 			birthday: user.birthday,
 			email: user.email,
 			phone: user.phone,

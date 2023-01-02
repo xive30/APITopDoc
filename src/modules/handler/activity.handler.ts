@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { ActivityDTO } from "../models/DTO/activity.dto";
+import { ActivityDTO } from "../Data/DTO/activity.dto";
 
 export class ActivityHandler {
 	private activityService: IService<ActivityDTO>;
@@ -10,10 +10,10 @@ export class ActivityHandler {
 	}
 
 	/**
-     * 
-     * @param req 
-     * @param res 
-     */
+	 *
+	 * @param req
+	 * @param res
+	 */
 	getActivities = async (req: Request, res: Response) => {
 		try {
 			const result = await this.activityService.findAll();
@@ -23,7 +23,7 @@ export class ActivityHandler {
 			res.status(500).json(`problème au nivau de handler : ${err}`);
 		}
 	};
-	
+
 	getActivityById = async (req: Request, res: Response) => {
 		try {
 			const result = await this.activityService.findById(
@@ -49,9 +49,7 @@ export class ActivityHandler {
 
 	updateActivity = async (req: Request, res: Response) => {
 		try {
-			const result = await this.activityService.update(
-				req.body
-			);
+			const result = await this.activityService.update(req.body);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

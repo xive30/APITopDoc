@@ -1,7 +1,7 @@
-import { IRepository } from "../core/respository.interface";
+import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { EmailBannedDTO } from "../models/DTO/emailBanned.dto";
-import { EmailBanned } from "../models/Models/emailBanned.model";
+import { EmailBannedDTO } from "../Data/DTO/emailBanned.dto";
+import { EmailBanned } from "../Data/Models/emailBanned.model";
 
 export class EmailBannedService implements IService<EmailBannedDTO> {
 	private emailBannedRepository: IRepository<EmailBannedDTO>;

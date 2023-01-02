@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { HolidayDTO } from "../models/DTO/holiday.dto";
+import { HolidayDTO } from "../Data/DTO/holiday.dto";
 
 export class HolidayHandler {
 	private holidayService: IService<HolidayDTO>;
@@ -43,9 +43,7 @@ export class HolidayHandler {
 
 	updateHoliday = async (req: Request, res: Response) => {
 		try {
-			const result = await this.holidayService.update(
-				req.body
-			);
+			const result = await this.holidayService.update(req.body);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);
