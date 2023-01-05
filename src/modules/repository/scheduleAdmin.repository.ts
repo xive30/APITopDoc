@@ -1,7 +1,7 @@
 import {
 	ScheduleAdminDTO,
 	ScheduleAdminUserDTO,
-} from "../Data/DTO/schedludeAdmin.dto";
+} from "../Data/DTO/scheduleAdmin.dto";
 import { ScheduleAdmin } from "../Data/Models/scheduleAdmin.model";
 import { ScheduleAdminMapper } from "../Data/Mapper/scheduleAdmin.mapper";
 import { IFullRepository, IRepository } from "../core/repository.interface";
@@ -9,7 +9,9 @@ import { InputError, NotFoundError } from "../core/errors/errors";
 import { User } from "../Data/Models/user.model";
 import sequelize from "~/Database/sequelize";
 
-export interface ISAdminRepository extends IRepository<ScheduleAdminDTO>, IFullRepository<ScheduleAdminUserDTO> {}
+export interface ISAdminRepository
+	extends IRepository<ScheduleAdminDTO>,
+		IFullRepository<ScheduleAdminUserDTO> {}
 
 export class ScheduleAdminRepository implements ISAdminRepository {
 	/**
@@ -22,7 +24,6 @@ export class ScheduleAdminRepository implements ISAdminRepository {
 			where: filter,
 			include: User,
 		});
-
 		try {
 			return scheduleAdmins.map((ScheduleAdmin) => {
 				return ScheduleAdminMapper.MapToFullSAdminDTO(ScheduleAdmin);
@@ -31,7 +32,7 @@ export class ScheduleAdminRepository implements ISAdminRepository {
 			throw new Error();
 		}
 	}
-	
+
 	/**
 	 *
 	 * @param id
@@ -115,16 +116,45 @@ export class ScheduleAdminRepository implements ISAdminRepository {
 	 *
 	 * @param scheduleAdmin
 	 */
-	async update(scheduleAdmin: ScheduleAdmin): Promise<ScheduleAdminDTO> {
-		if (scheduleAdmin.id_td_user === null)
-			throw new InputError("No id for scheduleAdmin");
+	async update(scheduleAdmin: ScheduleAdminUserDTO, id: number): Promise<boolean | number> {
 
-		const row = await ScheduleAdmin.findByPk(scheduleAdmin.id_td_user);
+		const userData = {
+				firstname: scheduleAdmin.firstname,
+				lastname: scheduleAdmin.lastname,
+				gender: scheduleAdmin.gender,
+				birthday: scheduleAdmin.birthday,
+				email: scheduleAdmin.email,
+				phone: scheduleAdmin.phone,
+			};
 
-		if (row === null) throw new NotFoundError("scheduleAdmin not found");
-
-		const result = await row.save();
-		return ScheduleAdminMapper.MapToDTO(result);
+		const scheduleAdminData = {
+				practitioner: scheduleAdmin.practitioner,
+			}
+			try {
+				return await sequelize.transaction(async (t) => {
+	
+					await User.update(
+						userData,
+						{
+							where: { id_td_user: id },
+							transaction: t
+						}
+					)
+	
+					const updatedDoctor = await ScheduleAdmin.update(
+						scheduleAdminData,
+						{
+							where: { id_td_user: id },
+							transaction: t
+						}
+					)
+					return updatedDoctor[0]
+				})
+	
+			} catch (error) {
+				
+				throw error
+			}
 	}
 
 	/**

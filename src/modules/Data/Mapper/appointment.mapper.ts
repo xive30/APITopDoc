@@ -1,6 +1,7 @@
-import { Appointment } from "../Models/appointement.model";
+import { Activity } from "../Models/activity.model";
+import { Appointment } from "../Models/appointment.model";
 import { AppointmentDTO } from "../DTO/appointment.dto";
-
+import { User } from "../Models/user.model";
 
 export class AppointmentMapper {
 	static MapToDTO(appointment: Appointment | null): AppointmentDTO {

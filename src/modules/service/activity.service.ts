@@ -49,10 +49,10 @@ export class ActivityService implements IService<ActivityDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(activity: Activity): Promise<ActivityDTO | null> {
-		return this.activityRepository.update(activity).then((data) => {
-			return data;
-		});
+	async update(activity: Activity,id_activity: number): Promise<boolean | number> {
+		return this.activityRepository.update(activity, id_activity).then((data) => {
+				return data;
+			});
 	}
 
 	/**

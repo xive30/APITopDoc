@@ -49,10 +49,10 @@ export class TimetableService implements IService<TimetableDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(timetable: Timetable): Promise<TimetableDTO | null> {
-		return this.timetableRepository.update(timetable).then((data) => {
-			return data;
-		});
+	async update(timetable: Timetable,id_timetable: number): Promise<boolean | number> {
+		return this.timetableRepository.update(timetable, id_timetable).then((data) => {
+				return data;
+			});
 	}
 
 	/**

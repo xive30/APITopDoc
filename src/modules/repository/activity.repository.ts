@@ -45,16 +45,12 @@ export class ActivityRepository implements IRepository<ActivityDTO> {
 	 *
 	 * @param activity
 	 */
-	async update(activity: Activity): Promise<ActivityDTO> {
-		if (activity.id_activity === null)
-			throw new InputError("No id for activity");
-
-		const row = await Activity.findByPk(activity.id_activity);
-
-		if (row === null) throw new NotFoundError("Activity not found");
-
-		const result = await row.save();
-		return ActivityMapper.MapToDTO(result);
+	async update(activity: Activity, id: number ): Promise<boolean | number> {
+		return Activity.update(activity, { where: { id_activity: id } }).then(
+			(data: Array<boolean | number>) => {
+				return data[0];
+			}
+		);
 	}
 
 	/**

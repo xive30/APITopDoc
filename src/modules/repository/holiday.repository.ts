@@ -45,15 +45,12 @@ export class HolidayRepository implements IRepository<HolidayDTO> {
 	 *
 	 * @param holiday
 	 */
-	async update(holiday: Holiday): Promise<HolidayDTO> {
-		if (holiday.id_holiday === null) throw new InputError("No id for holiday");
-
-		const row = await Holiday.findByPk(holiday.id_holiday);
-
-		if (row === null) throw new NotFoundError("Holiday not found");
-
-		const result = await row.save();
-		return HolidayMapper.MapToDTO(result);
+	async update(holiday: Holiday, id: number ): Promise<boolean | number> {
+		return Holiday.update(holiday, { where: { id_holiday: id } }).then(
+			(data: Array<boolean | number>) => {
+				return data[0];
+			}
+		);
 	}
 
 	/**

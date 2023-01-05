@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { ScheduleAdminDTO } from "../Data/DTO/schedludeAdmin.dto";
+import { ScheduleAdminDTO } from "../Data/DTO/scheduleAdmin.dto";
 import { ISAdminService } from "../service/scheduleAdmin.service";
 
 export class ScheduleAdminHandler {

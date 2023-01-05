@@ -65,15 +65,12 @@ export class UserRepository implements IUserRepository {
 	 *
 	 * @param user
 	 */
-	async update(user: User): Promise<UserDTO> {
-		if (user.id_td_user === null) throw new InputError(" No id for User");
-
-		const row = await User.findByPk(user.id_td_user);
-
-		if (row === null) throw new NotFoundError("User not Found");
-
-		const result = await row.save();
-		return UserMapper.MapToDTO(result);
+	async update(user: User, id: number ): Promise<boolean | number> {
+		return User.update(user, { where: { id_td_user: id } }).then(
+			(data: Array<boolean | number>) => {
+				return data[0];
+			}
+		);
 	}
 
 	/**

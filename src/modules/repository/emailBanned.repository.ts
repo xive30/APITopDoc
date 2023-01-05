@@ -45,16 +45,12 @@ export class EmailBannedRepository implements IRepository<EmailBannedDTO> {
 	 *
 	 * @param emailBanned
 	 */
-	async update(emailBanned: EmailBanned): Promise<EmailBannedDTO> {
-		if (emailBanned.id_email_banned === null)
-			throw new InputError("No id for emailBanned");
-
-		const row = await EmailBanned.findByPk(emailBanned.id_email_banned);
-
-		if (row === null) throw new NotFoundError("emailBanned not found");
-
-		const result = await row.save();
-		return EmailBannedMapper.MapToDTO(result);
+	async update(emailBanned: EmailBanned, id: number ): Promise<boolean | number> {
+		return EmailBanned.update(emailBanned, { where: { id_email_banned: id } }).then(
+			(data: Array<boolean | number>) => {
+				return data[0];
+			}
+		);;
 	}
 
 	/**

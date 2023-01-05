@@ -1,7 +1,7 @@
 import {
 	ScheduleAdminDTO,
 	ScheduleAdminUserDTO,
-} from "../DTO/schedludeAdmin.dto";
+} from "../DTO/scheduleAdmin.dto";
 import { ScheduleAdmin } from "../Models/scheduleAdmin.model";
 import { User } from "../Models/user.model";
 
@@ -17,7 +17,8 @@ export class ScheduleAdminMapper {
 	}
 
 	static MapToFullSAdminDTO(
-		scheduleAdmin: ScheduleAdmin | null): ScheduleAdminUserDTO {
+		scheduleAdmin: ScheduleAdmin | null
+	): ScheduleAdminUserDTO {
 		if (scheduleAdmin === null) return null as any;
 
 		const DTO: ScheduleAdminUserDTO = {

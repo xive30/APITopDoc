@@ -6,6 +6,7 @@ export class ActivityMapper {
 		if (activity === null) return null as any;
 
 		const DTO: ActivityDTO = {
+			id_activity: activity.id_activity,
 			activity_type: activity.activity_type,
 			description: activity.description,
 			activity_validation: activity.activity_validation,

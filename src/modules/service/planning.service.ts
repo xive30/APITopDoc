@@ -49,8 +49,8 @@ export class PlanningService implements IService<PlanningDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(planning: Planning): Promise<PlanningDTO | null> {
-		return this.planningRepository.update(planning).then((data) => {
+	async update(planning: Planning, id_planning: number): Promise<boolean | number> {
+		return this.planningRepository.update(planning, id_planning).then((data) => {
 			return data;
 		});
 	}

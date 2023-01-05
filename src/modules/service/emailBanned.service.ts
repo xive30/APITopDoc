@@ -49,10 +49,10 @@ export class EmailBannedService implements IService<EmailBannedDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(emailBanned: EmailBanned): Promise<EmailBannedDTO | null> {
-		return this.emailBannedRepository.update(emailBanned).then((data) => {
-			return data;
-		});
+	async update(emailBanned: EmailBanned,id_emailBanned: number): Promise<boolean | number> {
+		return this.emailBannedRepository.update(emailBanned, id_emailBanned).then((data) => {
+				return data;
+			});
 	}
 
 	/**

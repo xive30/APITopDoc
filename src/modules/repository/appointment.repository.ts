@@ -1,4 +1,4 @@
-import { Appointment } from "../Data/Models/appointement.model";
+import { Appointment } from "../Data/Models/appointment.model";
 import { AppointmentDTO } from "../Data/DTO/appointment.dto";
 import { AppointmentMapper } from "../Data/Mapper/appointment.mapper";
 import { IRepository } from "../core/repository.interface";
@@ -45,20 +45,12 @@ export class AppointmentRepository implements IRepository<AppointmentDTO> {
 	 *
 	 * @param appointment
 	 */
-	async update(appointment: Appointment): Promise<AppointmentDTO> {
-		if (
-			appointment.id_td_user === null &&
-			appointment.id_activity === null &&
-			appointment.date_appointment === null
-		)
-			throw new InputError("No id for appointment");
-
-		const row = await Appointment.findByPk();
-
-		if (row === null) throw new NotFoundError("appointment not found");
-
-		const result = await row.save();
-		return AppointmentMapper.MapToDTO(result);
+	async update(appointment: Appointment, id: number ): Promise<boolean | number> {
+		return Appointment.update(appointment, { where: { id_appointment: id } }).then(
+			(data: Array<boolean | number>) => {
+				return data[0];
+			}
+		);
 	}
 
 	/**

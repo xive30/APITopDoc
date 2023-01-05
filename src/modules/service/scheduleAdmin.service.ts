@@ -3,7 +3,7 @@ import { IFullService, IService } from "../core/service.interface";
 import {
 	ScheduleAdminDTO,
 	ScheduleAdminUserDTO,
-} from "../Data/DTO/schedludeAdmin.dto";
+} from "../Data/DTO/scheduleAdmin.dto";
 import { ScheduleAdmin } from "../Data/Models/scheduleAdmin.model";
 import { ISAdminRepository } from "../repository/scheduleAdmin.repository";
 
@@ -60,9 +60,9 @@ export class ScheduleAdminService implements ISAdminService {
 	 * @returns
 	 */
 	async create(
-		schedludeAdmin: ScheduleAdmin
+		scheduleAdmin: ScheduleAdmin
 	): Promise<ScheduleAdminDTO | null> {
-		return this.scheduleAdminRepository.create(schedludeAdmin).then((data) => {
+		return this.scheduleAdminRepository.create(scheduleAdmin).then((data) => {
 			return data;
 		});
 	}
@@ -72,12 +72,10 @@ export class ScheduleAdminService implements ISAdminService {
 	 * @param t
 	 * @returns
 	 */
-	async update(
-		schedludeAdmin: ScheduleAdmin
-	): Promise<ScheduleAdminDTO | null> {
-		return this.scheduleAdminRepository.update(schedludeAdmin).then((data) => {
-			return data;
-		});
+	async update(scheduleAdmin: ScheduleAdmin,id_td_user: number): Promise<boolean | number> {
+		return this.scheduleAdminRepository.update(scheduleAdmin, id_td_user).then((data) => {
+				return data;
+			});
 	}
 
 	/**

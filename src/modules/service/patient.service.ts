@@ -65,10 +65,10 @@ export class PatientService implements IPatientService {
 	 * @param t
 	 * @returns
 	 */
-	async update(patient: Patient): Promise<PatientDTO | null> {
-		return this.patientRepository.update(patient).then((data) => {
-			return data;
-		});
+	async update(patient: Patient,id_td_user: number): Promise<boolean | number> {
+		return this.patientRepository.update(patient, id_td_user).then((data) => {
+				return data;
+			});
 	}
 
 	/**

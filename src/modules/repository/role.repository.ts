@@ -45,15 +45,12 @@ export class RoleRepository implements IRepository<RoleDTO> {
 	 *
 	 * @param role
 	 */
-	async update(role: Role): Promise<RoleDTO> {
-		if (role.id_role === null) throw new InputError("No id for role");
-
-		const row = await Role.findByPk(role.id_role);
-
-		if (row === null) throw new NotFoundError("role not found");
-
-		const result = await row.save();
-		return RoleMapper.MapToDTO(result);
+	async update(role: Role, id: number ): Promise<boolean | number> {
+		return Role.update(role, { where: { id_role: id } }).then(
+			(data: Array<boolean | number>) => {
+				return data[0];
+			}
+		);
 	}
 
 	/**

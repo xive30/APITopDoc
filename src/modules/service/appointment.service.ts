@@ -1,6 +1,6 @@
 import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { Appointment } from "../Data/Models/appointement.model";
+import { Appointment } from "../Data/Models/appointment.model";
 import { AppointmentDTO } from "../Data/DTO/appointment.dto";
 
 export class AppointmentService implements IService<AppointmentDTO> {
@@ -49,10 +49,10 @@ export class AppointmentService implements IService<AppointmentDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(appointment: Appointment): Promise<AppointmentDTO | null> {
-		return this.appointmentRepository.update(appointment).then((data) => {
-			return data;
-		});
+	async update(appointment: Appointment,id_appointment: number): Promise<boolean | number> {
+		return this.appointmentRepository.update(appointment, id_appointment).then((data) => {
+				return data;
+			});
 	}
 
 	/**

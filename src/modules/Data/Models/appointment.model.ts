@@ -40,7 +40,7 @@ Appointment.init(
 	},
 	{
 		sequelize,
-		modelName: "td_appointement",
+		modelName: "td_appointment",
 		timestamps: false,
 		freezeTableName: true,
 	}

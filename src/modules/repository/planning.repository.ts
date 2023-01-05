@@ -41,16 +41,12 @@ export class PlanningRepository implements IRepository<PlanningDTO> {
 	 *
 	 * @param planning
 	 */
-	async update(planning: Planning): Promise<PlanningDTO> {
-		if (planning.id_planning === null)
-			throw new InputError("No id for planning");
-
-		const row = await Planning.findByPk(planning.id_planning);
-
-		if (row === null) throw new NotFoundError("planning not found");
-
-		const result = await row.save();
-		return PlanningMapper.MapToDTO(result);
+	async update(planning: Planning, id_planing: number): Promise<boolean | number> {
+		return Planning.update(planning, { where: { id_activity: id_planing } }).then(
+			(data: Array<boolean | number>) => {
+				return data[0];
+			}
+		);
 	}
 
 	/**

@@ -1,5 +1,5 @@
 import { Activity } from "~/modules/Data/Models/activity.model";
-import { Appointment } from "~/modules/Data/Models/appointement.model";
+import { Appointment } from "~/modules/Data/Models/appointment.model";
 import { Holiday } from "~/modules/Data/Models/holiday.model";
 import { Location } from "~/modules/Data/Models/location.model";
 import { Patient } from "~/modules/Data/Models/patient.model";

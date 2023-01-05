@@ -45,16 +45,12 @@ export class TimetableRepository implements IRepository<TimetableDTO> {
 	 *
 	 * @param timetable
 	 */
-	async update(timetable: Timetable): Promise<TimetableDTO> {
-		if (timetable.id_timetable === null)
-			throw new InputError("No id for timetable");
-
-		const row = await Timetable.findByPk(timetable.id_timetable);
-
-		if (row === null) throw new NotFoundError("Timetable not found");
-
-		const result = await row.save();
-		return TimetableMapper.MapToDTO(result);
+	async update(timetable: Timetable, id: number ): Promise<boolean | number> {
+		return Timetable.update(timetable, { where: { id_timetable: id } }).then(
+			(data: Array<boolean | number>) => {
+				return data[0];
+			}
+		);
 	}
 
 	/**

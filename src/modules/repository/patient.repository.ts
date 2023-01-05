@@ -112,15 +112,12 @@ export class PatientRepository implements IPatientRepository {
 	 *
 	 * @param patient
 	 */
-	async update(patient: Patient): Promise<PatientDTO> {
-		if (patient.id_td_user === null) throw new InputError("No id for patient");
-
-		const row = await Patient.findByPk(patient.id_td_user);
-
-		if (row === null) throw new NotFoundError("patient not found");
-
-		const result = await row.save();
-		return PatientMapper.MapToDTO(result);
+	async update(patient: Patient, id: number ): Promise<boolean | number> {
+		return Patient.update(patient, { where: { id_td_user: id } }).then(
+			(data: Array<boolean | number>) => {
+				return data[0];
+			}
+		);
 	}
 
 	/**

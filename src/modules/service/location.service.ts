@@ -49,10 +49,10 @@ export class LocationService implements IService<LocationDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(location: Location): Promise<LocationDTO | null> {
-		return this.locationRepository.update(location).then((data) => {
-			return data;
-		});
+	async update(location: Location,id_location: number): Promise<boolean | number> {
+		return this.locationRepository.update(location, id_location).then((data) => {
+				return data;
+			});
 	}
 
 	/**

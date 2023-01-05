@@ -49,10 +49,10 @@ export class RoleService implements IService<RoleDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(role: Role): Promise<RoleDTO | null> {
-		return this.roleRepository.update(role).then((data) => {
-			return data;
-		});
+	async update(role: Role,id_role: number): Promise<boolean | number> {
+		return this.roleRepository.update(role, id_role).then((data) => {
+				return data;
+			});
 	}
 
 	/**

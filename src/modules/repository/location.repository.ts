@@ -45,16 +45,12 @@ export class LocationRepository implements IRepository<LocationDTO> {
 	 *
 	 * @param location
 	 */
-	async update(location: Location): Promise<LocationDTO> {
-		if (location.id_location === null)
-			throw new InputError("No id for location");
-
-		const row = await Location.findByPk(location.id_location);
-
-		if (row === null) throw new NotFoundError("Location not found");
-
-		const result = await row.save();
-		return LocationMapper.MapToDTO(result);
+	async update(location: Location, id: number ): Promise<boolean | number> {
+		return Location.update(location, { where: { id_location: id } }).then(
+			(data: Array<boolean | number>) => {
+				return data[0];
+			}
+		);
 	}
 
 	/**

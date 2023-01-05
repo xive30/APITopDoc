@@ -49,10 +49,10 @@ export class HolidayService implements IService<HolidayDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(holiday: Holiday): Promise<HolidayDTO | null> {
-		return this.holidayRepository.update(holiday).then((data) => {
-			return data;
-		});
+	async update(holiday: Holiday,id_holiday: number): Promise<boolean | number> {
+		return this.holidayRepository.update(holiday, id_holiday).then((data) => {
+				return data;
+			});
 	}
 
 	/**
