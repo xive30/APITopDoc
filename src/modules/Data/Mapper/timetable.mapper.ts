@@ -10,6 +10,7 @@ export class TimetableMapper {
 			timetable_start: timetable.timetable_start,
 			timetable_end: timetable.timetable_end,
 			duration: timetable.duration,
+			id_planning: timetable.id_planning,
 		};
 		return DTO;
 	}

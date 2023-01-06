@@ -53,7 +53,7 @@ emailBannedRouter.get("/:id", emailBannedHandler.getEmailBannedById);
  *         in: body
  *         required: true
  *         type: object
- *         default: {"json à définir": "json à définir",}
+ *         default: {"id_email_banned": "5", "email": menfou@gmail.com", "reason": "Luc Vigneron", "banned_date": "2023-01-06"}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
@@ -78,7 +78,7 @@ emailBannedRouter.post("/", emailBannedHandler.createEmailBanned);
  *         in: body
  *         required: true
  *         type: formData
- *         default: {"json à définir": "json à définir",}
+ *         default: {"id_email_banned": "5", "email": menfou@gmail.com", "reason": "Luc Vigneron", "banned_date": "2023-01-06"}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.

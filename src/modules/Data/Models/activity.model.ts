@@ -2,14 +2,15 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../../../Database/sequelize";
 
 export class Activity extends Model {
-	id_activity?: number;
+	id_activity?: number | undefined;
 
 	activity_type: string;
 
 	description: string;
 
 	activity_validation: boolean;
-	static id_activity: number | undefined;
+
+	id_location: number;
 }
 
 const concatRequiredMessage = (data: string) => {

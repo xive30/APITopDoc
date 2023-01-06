@@ -53,7 +53,7 @@ holidayRouter.get("/:id", holidayHandler.getHolidayById);
  *         in: body
  *         required: true
  *         type: object
- *         default: {"json à définir": "json à définir",}
+ *         default: { "start_date": "2023-06-01", "end_date": "2023-07-01", "id_activity": 2}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.
@@ -78,7 +78,7 @@ holidayRouter.post("/", holidayHandler.createHoliday);
  *         in: body
  *         required: true
  *         type: formData
- *         default: {"json à définir": "json à définir",}
+ *         default: { "start_date": "2023-06-01", "end_date": "2023-07-01", "id_activity": 2}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.

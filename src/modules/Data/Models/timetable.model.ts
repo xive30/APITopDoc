@@ -11,6 +11,7 @@ export class Timetable extends Model {
 	timetable_end: Date;
 
 	duration: number;
+	id_planning: number;
 }
 
 const concatRequiredMessage = (data: string) => {

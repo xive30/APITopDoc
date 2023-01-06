@@ -7,6 +7,8 @@ export class Holiday extends Model {
 	start_date: Date;
 
 	end_date: Date;
+	
+	id_activity: number;
 }
 
 const concatRequiredMessage = (data: string) => {

@@ -3,6 +3,7 @@ import { Activity } from "../Data/Models/activity.model";
 import { ActivityMapper } from "../Data/Mapper/activity.mapper";
 import { IRepository } from "../core/repository.interface";
 import { InputError, NotFoundError } from "../core/errors/errors";
+import { Location } from "../Data/Models/location.model";
 
 export class ActivityRepository implements IRepository<ActivityDTO> {
 	/**
@@ -22,13 +23,14 @@ export class ActivityRepository implements IRepository<ActivityDTO> {
 	 * @returns
 	 */
 	async findAll(filter: any): Promise<Array<ActivityDTO>> {
-		return Activity.findAll({
+		const activities = await Activity.findAll({
 			where: filter,
-		}).then((data: Array<Activity>) => {
-			return data.map((activity: Activity) => {
-				return ActivityMapper.MapToDTO(activity);
-			});
+			include: Location,
 		});
+		return activities.map((activity: Activity) => {
+			return ActivityMapper.MapToActivityLocationDTO(activity);
+		});
+		
 	}
 
 	/**
