@@ -65,10 +65,10 @@ export class UserService implements IUserService {
 	 * @param t
 	 * @returns
 	 */
-	async update(user: User): Promise<UserDTO | null> {
-		return this.userRepository.update(user).then((data) => {
-			return data;
-		});
+	async update(user: User,id_td_user: number): Promise<boolean | number> {
+		return this.userRepository.update(user, id_td_user).then((data) => {
+				return data;
+			});
 	}
 
 	/**

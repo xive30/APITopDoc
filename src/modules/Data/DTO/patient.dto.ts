@@ -13,6 +13,12 @@ export interface PatientUserDTO {
 
 	phone: number;
 
+	address: string;
+
+	zip_code: string;
+	
+	city: string;
+
 	secu_number_fr_fr: string;
 }
 

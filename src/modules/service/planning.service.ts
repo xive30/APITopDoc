@@ -1,13 +1,27 @@
 import { IRepository } from "../core/repository.interface";
-import { IService } from "../core/service.interface";
-import { PlanningDTO } from "../Data/DTO/planning.dto";
+import { IFullService, IService } from "../core/service.interface";
+import { PlanningDTO, PlanningTimetableDTO } from "../Data/DTO/planning.dto";
 import { Planning } from "../Data/Models/planning.model";
+import { IPlanningRepository } from "../repository/planning.repository";
 
-export class PlanningService implements IService<PlanningDTO> {
-	private planningRepository: IRepository<PlanningDTO>;
+export interface IPlanningService extends IService<PlanningDTO>, IFullService<PlanningTimetableDTO> {}
 
-	constructor(planningRepository: IRepository<PlanningDTO>) {
+export class PlanningService implements IPlanningService {
+	private planningRepository: IPlanningRepository;
+
+	constructor(planningRepository: IPlanningRepository) {
 		this.planningRepository = planningRepository;
+	}
+
+	/**
+	 *
+	 * @param options
+	 * @returns
+	 */
+	async findAllFull(options?: any): Promise<Array<PlanningTimetableDTO> | null> {
+		return this.planningRepository.findAllFull(options).then((data) => {
+			return data;
+		});
 	}
 
 	/**

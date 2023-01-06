@@ -1,17 +1,16 @@
 import { Request, Response } from "express";
-import { IService } from "../core/service.interface";
-import { PlanningDTO } from "../Data/DTO/planning.dto";
+import { IPlanningService } from "../service/planning.service";
 
 export class PlanningHandler {
-	private planningService: IService<PlanningDTO>;
+	private planningService: IPlanningService;
 
-	constructor(planningService: IService<PlanningDTO>) {
+	constructor(planningService: IPlanningService) {
 		this.planningService = planningService;
 	}
 
 	getplannings = async (req: Request, res: Response) => {
 		try {
-			const result = await this.planningService.findAll();
+			const result = await this.planningService.findAllFull();
 			if (result === null) return res.status(404).send();
 			res.status(200).json(result);
 		} catch (err) {
@@ -44,7 +43,7 @@ export class PlanningHandler {
 
 	updatePlanning = async (req: Request, res: Response) => {
 		try {
-			const result = await this.planningService.update(req.body);
+			const result = await this.planningService.update(req.body, parseInt(req.params.id));
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

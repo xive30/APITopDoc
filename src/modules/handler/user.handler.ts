@@ -58,7 +58,7 @@ export class UserHandler {
 				let hashedPassword = await bcrypt.hash(req.body.password, 10);
 				req.body = { ...req.body, password: hashedPassword };
 			}
-			const result = await this.userService.update(req.body);
+			const result = await this.userService.update(req.body, parseInt(req.params.id));
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

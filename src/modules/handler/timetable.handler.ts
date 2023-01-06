@@ -44,7 +44,7 @@ export class TimetableHandler {
 
 	updateTimetable = async (req: Request, res: Response) => {
 		try {
-			const result = await this.timetableService.update(req.body);
+			const result = await this.timetableService.update(req.body, parseInt(req.params.id));
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

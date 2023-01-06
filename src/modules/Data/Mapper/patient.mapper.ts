@@ -24,6 +24,9 @@ export class PatientMapper {
 				birthday: patient.get({ plain: true }).td_user.birthday,
 				email: patient.get({ plain: true }).td_user.email,
 				phone: patient.get({ plain: true }).td_user.phone,
+				address: patient.get({ plain: true }).td_user.td_location.address,
+				zip_code: patient.get({ plain: true }).td_user.td_location.zip_code,
+				city: patient.get({ plain: true }).td_user.td_location.city,
 				secu_number_fr_fr: patient.secu_number_fr_fr,
 			};
 		} catch (error) {

@@ -42,7 +42,7 @@ export class PatientHandler {
 
 	updatePatient = async (req: Request, res: Response) => {
 		try {
-			const result = await this.patientService.update(req.body);
+			const result = await this.patientService.update(req.body, req.body.id_td_user);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

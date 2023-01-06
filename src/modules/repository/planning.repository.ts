@@ -1,10 +1,35 @@
 import { InputError, NotFoundError } from "../core/errors/errors";
-import { IRepository } from "../core/repository.interface";
-import { PlanningDTO } from "../Data/DTO/planning.dto";
+import { IFullRepository, IRepository } from "../core/repository.interface";
+import { PlanningDTO, PlanningTimetableDTO } from "../Data/DTO/planning.dto";
 import { PlanningMapper } from "../Data/Mapper/planning.mapper";
 import { Planning } from "../Data/Models/planning.model";
+import { Timetable } from "../Data/Models/timetable.model";
 
-export class PlanningRepository implements IRepository<PlanningDTO> {
+export interface IPlanningRepository extends IRepository<PlanningDTO>, IFullRepository<PlanningTimetableDTO> {}
+
+export class PlanningRepository implements IPlanningRepository {
+	/**
+	 *
+	 * @param filter
+	 * @returns
+	 */
+	async findAllFull(filter: any): Promise<Array<PlanningTimetableDTO>> {
+		const plannings =  await Planning.findAll({
+			where: filter,
+			include: Timetable,
+			nest: true,
+		});
+
+		try {
+			return  plannings.map((planning) => {
+				return PlanningMapper.MapTimetableByPlanningToDTO(planning);
+			});
+		} catch (error) {
+			throw new Error();
+			// Renvoyer une erreur
+		}
+	}
+
 	/**
 	 *
 	 * @param id

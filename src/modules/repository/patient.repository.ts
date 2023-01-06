@@ -5,6 +5,7 @@ import { PatientDTO, PatientUserDTO } from "../Data/DTO/patient.dto";
 import { InputError, NotFoundError } from "../core/errors/errors";
 import { User } from "../Data/Models/user.model";
 import sequelize from "~/Database/sequelize";
+import { Location } from "../Data/Models/location.model";
 
 export interface IPatientRepository
 	extends IRepository<PatientDTO>,
@@ -19,7 +20,7 @@ export class PatientRepository implements IPatientRepository {
 	async findAllFull(filter: any): Promise<PatientUserDTO[]> {
 		const patients = await Patient.findAll({
 			where: filter,
-			include: User,
+			include: [{model:User, include: [Location]}],
 		});
 
 		try {
@@ -79,6 +80,17 @@ export class PatientRepository implements IPatientRepository {
 				}
 			);
 
+			const newLocation = await Location.create(
+				{
+					address: patient.address,
+					zip_code: patient.zip_code,
+					city: patient.city,
+				},
+				{
+					transaction: t,
+				}
+			)
+
 			const newPatient = await Patient.create(
 				{
 					id_td_user: newUser.id_td_user,
@@ -97,6 +109,9 @@ export class PatientRepository implements IPatientRepository {
 				birthday: newUser.birthday,
 				email: newUser.email,
 				phone: newUser.phone,
+				address: newLocation.address,
+				zip_code: newLocation.zip_code,
+				city: newLocation.city,
 				secu_number_fr_fr: newPatient.secu_number_fr_fr,
 			};
 
