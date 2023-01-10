@@ -8,4 +8,5 @@ export interface IRepository<T> {
 
 export interface IFullRepository<T> {
 	findAllFull(options?: any): Promise<T[]>;
+	createFull(t: T): Promise<T | null>;
 }

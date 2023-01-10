@@ -1,4 +1,4 @@
-export interface UserDTO {
+export interface UserDto {
 	firstname: string;
 
 	lastname: string;
@@ -10,9 +10,9 @@ export interface UserDTO {
 	email: string;
 
 	phone: number;
-}
+}	
 
-export interface UserLocationDTO {
+export interface UserLocationDto {
 	firstname: string;
 
 	lastname: string;
@@ -34,6 +34,8 @@ export interface UserLocationDTO {
 	city: string;
 }
 
-export interface UserIdDTO extends UserDTO {
-	id_td_user?: string;
-}
+export interface UserAuthDto extends UserDto {
+	id_td_user?: number;
+
+	password: string;
+}	

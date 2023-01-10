@@ -1,19 +1,19 @@
 import { InputError, NotFoundError } from "../core/errors/errors";
 import { IRepository } from "../core/repository.interface";
-import { TimetableDTO } from "../Data/DTO/timetable.dto";
+import { TimetableDto } from "../Data/Dto/timetable.Dto";
 import { TimetableMapper } from "../Data/Mapper/timetable.mapper";
 import { Timetable } from "../Data/Models/timetable.model";
 
-export class TimetableRepository implements IRepository<TimetableDTO> {
+export class TimetableRepository implements IRepository<TimetableDto> {
 	/**
 	 *
 	 * @param id
 	 * @returns
 	 */
-	async findById(id: number): Promise<TimetableDTO | null> {
+	async findById(id: number): Promise<TimetableDto | null> {
 		const result = await Timetable.findByPk(id);
 		if (result === null) throw new NotFoundError("Timetable not found");
-		return TimetableMapper.MapToDTO(result);
+		return TimetableMapper.MapToDto(result);
 	}
 
 	/**
@@ -21,12 +21,12 @@ export class TimetableRepository implements IRepository<TimetableDTO> {
 	 * @param filter
 	 * @returns
 	 */
-	async findAll(filter: any): Promise<Array<TimetableDTO>> {
+	async findAll(filter: any): Promise<Array<TimetableDto>> {
 		return Timetable.findAll({
 			where: filter,
 		}).then((data: Array<Timetable>) => {
 			return data.map((timetable: Timetable) => {
-				return TimetableMapper.MapToDTO(timetable);
+				return TimetableMapper.MapToDto(timetable);
 			});
 		});
 	}
@@ -35,9 +35,9 @@ export class TimetableRepository implements IRepository<TimetableDTO> {
 	 *
 	 * @param timetable
 	 */
-	async create(timetable: Partial<TimetableDTO>): Promise<TimetableDTO> {
+	async create(timetable: Partial<TimetableDto>): Promise<TimetableDto> {
 		return Timetable.create(timetable).then((data: Timetable) => {
-			return TimetableMapper.MapToDTO(data);
+			return TimetableMapper.MapToDto(data);
 		});
 	}
 
@@ -45,7 +45,7 @@ export class TimetableRepository implements IRepository<TimetableDTO> {
 	 *
 	 * @param timetable
 	 */
-	async update(timetable: Timetable, id: number ): Promise<boolean | number> {
+	async update(timetable: Timetable, id: number): Promise<boolean | number> {
 		return Timetable.update(timetable, { where: { id_timetable: id } }).then(
 			(data: Array<boolean | number>) => {
 				return data[0];

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { activityRouter } from "./activityRouter";
 import { appointmentRouter } from "./appointmentRouter";
+import { authRouter } from "./authRouter";
 import { emailBannedRouter } from "./emailBannedRouter";
 import { holidayRouter } from "./holidayRouter";
 import { locationRouter } from "./locationRouter";
@@ -24,3 +25,4 @@ apiRouter.use('/api/v1/roles', roleRouter)
 apiRouter.use('/api/v1/schedule-admins', scheduleAdminRouter)
 apiRouter.use('/api/v1/timetables', timetableRouter)
 apiRouter.use('/api/v1/users', userRouter)
+apiRouter.use('/api/v1/auth', authRouter)

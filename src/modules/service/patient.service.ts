@@ -1,12 +1,12 @@
 import { IRepository } from "../core/repository.interface";
 import { IFullService, IService } from "../core/service.interface";
-import { PatientDTO, PatientUserDTO } from "../Data/DTO/patient.dto";
+import { PatientDto, PatientUserDto } from "../Data/Dto/patient.Dto";
 import { Patient } from "../Data/Models/patient.model";
 import { IPatientRepository } from "../repository/patient.repository";
 
 export interface IPatientService
-	extends IService<PatientDTO>,
-		IFullService<PatientUserDTO> {}
+	extends IService<PatientDto>,
+		IFullService<PatientUserDto> {}
 
 export class PatientService implements IPatientService {
 	private patientRepository: IPatientRepository;
@@ -20,7 +20,7 @@ export class PatientService implements IPatientService {
 	 * @param options
 	 * @returns
 	 */
-	async findAllFull(options?: any): Promise<Array<PatientUserDTO> | null> {
+	async findAllFull(options?: any): Promise<Array<PatientUserDto> | null> {
 		return this.patientRepository.findAllFull(options).then((data) => {
 			return data;
 		});
@@ -31,7 +31,7 @@ export class PatientService implements IPatientService {
 	 * @param id
 	 * @returns
 	 */
-	async findById(id_td_user: number): Promise<PatientDTO | null> {
+	async findById(id_td_user: number): Promise<PatientDto | null> {
 		return this.patientRepository.findById(id_td_user).then((data) => {
 			console.log(data);
 			return data;
@@ -43,7 +43,7 @@ export class PatientService implements IPatientService {
 	 * @param options
 	 * @returns
 	 */
-	async findAll(options?: any): Promise<Array<PatientDTO> | null> {
+	async findAll(options?: any): Promise<Array<PatientDto> | null> {
 		return this.patientRepository.findAll(options).then((data) => {
 			return data;
 		});
@@ -54,8 +54,19 @@ export class PatientService implements IPatientService {
 	 * @param t
 	 * @returns
 	 */
-	async create(patient: Patient): Promise<PatientDTO | null> {
+	async create(patient: Patient): Promise<PatientDto | null> {
 		return this.patientRepository.create(patient).then((data) => {
+			return data;
+		});
+	}
+
+	/**
+	 *
+	 * @param t
+	 * @returns
+	 */
+	async createFull(patient: PatientUserDto): Promise<PatientUserDto | null> {
+		return this.patientRepository.createFull(patient).then((data) => {
 			return data;
 		});
 	}

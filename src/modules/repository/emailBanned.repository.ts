@@ -1,19 +1,19 @@
-import { EmailBannedDTO } from "../Data/DTO/emailBanned.dto";
+import { EmailBannedDto } from "../Data/Dto/emailBanned.Dto";
 import { EmailBanned } from "../Data/Models/emailBanned.model";
 import { EmailBannedMapper } from "../Data/Mapper/emailBanned.mapper";
 import { IRepository } from "../core/repository.interface";
 import { InputError, NotFoundError } from "../core/errors/errors";
 
-export class EmailBannedRepository implements IRepository<EmailBannedDTO> {
+export class EmailBannedRepository implements IRepository<EmailBannedDto> {
 	/**
 	 *
 	 * @param id
 	 * @returns
 	 */
-	async findById(id: number): Promise<EmailBannedDTO | null> {
+	async findById(id: number): Promise<EmailBannedDto | null> {
 		const result = await EmailBanned.findByPk(id);
 		if (result === null) throw new NotFoundError("Email Banned not found");
-		return EmailBannedMapper.MapToDTO(result);
+		return EmailBannedMapper.MapToDto(result);
 	}
 
 	/**
@@ -21,12 +21,12 @@ export class EmailBannedRepository implements IRepository<EmailBannedDTO> {
 	 * @param filter
 	 * @returns
 	 */
-	async findAll(filter: any): Promise<Array<EmailBannedDTO>> {
+	async findAll(filter: any): Promise<Array<EmailBannedDto>> {
 		return EmailBanned.findAll({
 			where: filter,
 		}).then((data: Array<EmailBanned>) => {
 			return data.map((emailBanned: EmailBanned) => {
-				return EmailBannedMapper.MapToDTO(emailBanned);
+				return EmailBannedMapper.MapToDto(emailBanned);
 			});
 		});
 	}
@@ -35,9 +35,9 @@ export class EmailBannedRepository implements IRepository<EmailBannedDTO> {
 	 *
 	 * @param emailBanned
 	 */
-	async create(emailBanned: Partial<EmailBannedDTO>): Promise<EmailBannedDTO> {
+	async create(emailBanned: Partial<EmailBannedDto>): Promise<EmailBannedDto> {
 		return EmailBanned.create(emailBanned).then((data: EmailBanned) => {
-			return EmailBannedMapper.MapToDTO(data);
+			return EmailBannedMapper.MapToDto(data);
 		});
 	}
 
@@ -45,12 +45,15 @@ export class EmailBannedRepository implements IRepository<EmailBannedDTO> {
 	 *
 	 * @param emailBanned
 	 */
-	async update(emailBanned: EmailBanned, id: number ): Promise<boolean | number> {
-		return EmailBanned.update(emailBanned, { where: { id_email_banned: id } }).then(
-			(data: Array<boolean | number>) => {
-				return data[0];
-			}
-		);;
+	async update(
+		emailBanned: EmailBanned,
+		id: number
+	): Promise<boolean | number> {
+		return EmailBanned.update(emailBanned, {
+			where: { id_email_banned: id },
+		}).then((data: Array<boolean | number>) => {
+			return data[0];
+		});
 	}
 
 	/**

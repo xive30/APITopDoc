@@ -1,19 +1,19 @@
 import { Appointment } from "../Data/Models/appointment.model";
-import { AppointmentDTO } from "../Data/DTO/appointment.dto";
+import { AppointmentDto } from "../Data/Dto/appointment.Dto";
 import { AppointmentMapper } from "../Data/Mapper/appointment.mapper";
 import { IRepository } from "../core/repository.interface";
 import { InputError, NotFoundError } from "../core/errors/errors";
 
-export class AppointmentRepository implements IRepository<AppointmentDTO> {
+export class AppointmentRepository implements IRepository<AppointmentDto> {
 	/**
 	 *
 	 * @param id
 	 * @returns
 	 */
-	async findById(id: number): Promise<AppointmentDTO | null> {
+	async findById(id: number): Promise<AppointmentDto | null> {
 		const result = await Appointment.findByPk(id);
 		if (result === null) throw new NotFoundError("Person not found");
-		return AppointmentMapper.MapToDTO(result);
+		return AppointmentMapper.MapToDto(result);
 	}
 
 	/**
@@ -21,12 +21,12 @@ export class AppointmentRepository implements IRepository<AppointmentDTO> {
 	 * @param filter
 	 * @returns
 	 */
-	async findAll(filter: any): Promise<Array<AppointmentDTO>> {
+	async findAll(filter: any): Promise<Array<AppointmentDto>> {
 		return Appointment.findAll({
 			where: filter,
 		}).then((data: Array<Appointment>) => {
 			return data.map((appointment: Appointment) => {
-				return AppointmentMapper.MapToDTO(appointment);
+				return AppointmentMapper.MapToDto(appointment);
 			});
 		});
 	}
@@ -35,9 +35,9 @@ export class AppointmentRepository implements IRepository<AppointmentDTO> {
 	 *
 	 * @param appointment
 	 */
-	async create(appointment: Partial<AppointmentDTO>): Promise<AppointmentDTO> {
+	async create(appointment: Partial<AppointmentDto>): Promise<AppointmentDto> {
 		return Appointment.create(appointment).then((data: Appointment) => {
-			return AppointmentMapper.MapToDTO(data);
+			return AppointmentMapper.MapToDto(data);
 		});
 	}
 
@@ -45,12 +45,15 @@ export class AppointmentRepository implements IRepository<AppointmentDTO> {
 	 *
 	 * @param appointment
 	 */
-	async update(appointment: Appointment, id: number ): Promise<boolean | number> {
-		return Appointment.update(appointment, { where: { id_appointment: id } }).then(
-			(data: Array<boolean | number>) => {
-				return data[0];
-			}
-		);
+	async update(
+		appointment: Appointment,
+		id: number
+	): Promise<boolean | number> {
+		return Appointment.update(appointment, {
+			where: { id_appointment: id },
+		}).then((data: Array<boolean | number>) => {
+			return data[0];
+		});
 	}
 
 	/**

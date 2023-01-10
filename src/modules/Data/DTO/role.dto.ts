@@ -1,3 +1,3 @@
-export interface RoleDTO{
-    name_role: string;
+export interface RoleDto {
+	name_role: string;
 }

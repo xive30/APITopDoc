@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { ScheduleAdminDTO } from "../Data/DTO/scheduleAdmin.dto";
+import { ScheduleAdminDto } from "../Data/Dto/scheduleAdmin.Dto";
 import { ISAdminService } from "../service/scheduleAdmin.service";
 
 export class ScheduleAdminHandler {
@@ -44,7 +44,10 @@ export class ScheduleAdminHandler {
 
 	updateScheduleAdmin = async (req: Request, res: Response) => {
 		try {
-			const result = await this.scheduleAdminService.update(req.body, parseInt(req.params.id));
+			const result = await this.scheduleAdminService.update(
+				req.body,
+				parseInt(req.params.id)
+			);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

@@ -8,4 +8,5 @@ export interface IService<T> {
 
 export interface IFullService<T> {
 	findAllFull(): Promise<T[] | null>;
+	createFull(t: T): Promise<T | null>;
 }

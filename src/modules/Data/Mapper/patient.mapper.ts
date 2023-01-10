@@ -1,22 +1,22 @@
-import { PatientDTO, PatientUserDTO } from "../DTO/patient.dto";
+import { PatientDto, PatientUserDto } from "../Dto/patient.Dto";
 import { Patient } from "../Models/patient.model";
 
 export class PatientMapper {
-	static MapToDTO(patient: Patient | null): PatientDTO {
+	static MapToDto(patient: Patient | null): PatientDto {
 		if (patient === null) return null as any;
 
-		const DTO: PatientDTO = {
+		const Dto: PatientDto = {
 			id_td_user: patient.id_td_user,
 			secu_number_fr_fr: patient.secu_number_fr_fr,
 		};
-		return DTO;
+		return Dto;
 	}
 
-	static MapToFullPatientDTO(patient: Patient | null): PatientUserDTO {
+	static MapToFullPatientDto(patient: Patient | null): PatientUserDto {
 		if (patient === null) return null as any;
-		let DTO: PatientUserDTO;
+		let Dto: PatientUserDto;
 		try {
-			DTO = {
+			Dto = {
 				id_td_user: patient.get("id_td_user"),
 				firstname: patient.get({ plain: true }).td_user.firstname,
 				lastname: patient.get({ plain: true }).td_user.lastname,
@@ -33,6 +33,6 @@ export class PatientMapper {
 			console.log(error);
 			throw new Error();
 		}
-		return DTO;
+		return Dto;
 	}
 }

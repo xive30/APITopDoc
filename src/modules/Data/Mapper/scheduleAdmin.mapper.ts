@@ -1,27 +1,27 @@
 import {
-	ScheduleAdminDTO,
-	ScheduleAdminUserDTO,
-} from "../DTO/scheduleAdmin.dto";
+	ScheduleAdminDto,
+	ScheduleAdminUserDto,
+} from "../Dto/scheduleAdmin.Dto";
 import { ScheduleAdmin } from "../Models/scheduleAdmin.model";
 import { User } from "../Models/user.model";
 
 export class ScheduleAdminMapper {
-	static MapToDTO(scheduleAdmin: ScheduleAdmin | null): ScheduleAdminDTO {
+	static MapToDto(scheduleAdmin: ScheduleAdmin | null): ScheduleAdminDto {
 		if (scheduleAdmin === null) return null as any;
 
-		const DTO: ScheduleAdminDTO = {
+		const Dto: ScheduleAdminDto = {
 			id_td_user: scheduleAdmin.id_td_user,
 			practitioner: scheduleAdmin.practitioner,
 		};
-		return DTO;
+		return Dto;
 	}
 
-	static MapToFullSAdminDTO(
+	static MapToFullSAdminDto(
 		scheduleAdmin: ScheduleAdmin | null
-	): ScheduleAdminUserDTO {
+	): ScheduleAdminUserDto {
 		if (scheduleAdmin === null) return null as any;
 
-		const DTO: ScheduleAdminUserDTO = {
+		const Dto: ScheduleAdminUserDto = {
 			id_td_user: scheduleAdmin.get("id_td_user"),
 			firstname: scheduleAdmin.get({ plain: true }).td_user.firstname,
 			lastname: scheduleAdmin.get({ plain: true }).td_user.lastname,
@@ -31,6 +31,6 @@ export class ScheduleAdminMapper {
 			phone: scheduleAdmin.get({ plain: true }).td_user.phone,
 			practitioner: scheduleAdmin.practitioner,
 		};
-		return DTO;
+		return Dto;
 	}
 }

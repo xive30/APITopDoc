@@ -1,11 +1,11 @@
-export interface ActivityLocationDTO {
-    id_activity?: number;
+export interface ActivityLocationDto {
+	id_activity?: number;
 
-    activity_type: string;
+	activity_type: string;
 
-    description: string;
+	description: string;
 
-    activity_validation?: boolean;
+	activity_validation?: boolean;
 
 	id_location: number;
 
@@ -16,12 +16,12 @@ export interface ActivityLocationDTO {
 	city: string;
 }
 
-export interface ActivityDTO {
-    id_activity?: number;
+export interface ActivityDto {
+	id_activity?: number;
 
-    activity_type: string;
+	activity_type: string;
 
-    description: string;
+	description: string;
 
-    activity_validation?: boolean;
+	activity_validation?: boolean;
 }

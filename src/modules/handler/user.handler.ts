@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 import { logger } from "~/winston.logger";
-import { IService } from "../core/service.interface";
-import { UserDTO } from "../Data/DTO/user.dto";
 import { IUserService } from "../service/user.service";
 
 const bcrypt = require("bcrypt");

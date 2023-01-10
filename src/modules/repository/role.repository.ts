@@ -1,19 +1,19 @@
 import { InputError, NotFoundError } from "../core/errors/errors";
 import { IRepository } from "../core/repository.interface";
-import { RoleDTO } from "../Data/DTO/role.dto";
+import { RoleDto } from "../Data/Dto/role.Dto";
 import { RoleMapper } from "../Data/Mapper/role.mapper";
 import { Role } from "../Data/Models/role.model";
 
-export class RoleRepository implements IRepository<RoleDTO> {
+export class RoleRepository implements IRepository<RoleDto> {
 	/**
 	 *
 	 * @param id
 	 * @returns
 	 */
-	async findById(id: number): Promise<RoleDTO | null> {
+	async findById(id: number): Promise<RoleDto | null> {
 		const result = await Role.findByPk(id);
 		if (result === null) throw new NotFoundError("Role not found");
-		return RoleMapper.MapToDTO(result);
+		return RoleMapper.MapToDto(result);
 	}
 
 	/**
@@ -21,12 +21,12 @@ export class RoleRepository implements IRepository<RoleDTO> {
 	 * @param filter
 	 * @returns
 	 */
-	async findAll(filter: any): Promise<Array<RoleDTO>> {
+	async findAll(filter: any): Promise<Array<RoleDto>> {
 		return Role.findAll({
 			where: filter,
 		}).then((data: Array<Role>) => {
 			return data.map((role: Role) => {
-				return RoleMapper.MapToDTO(role);
+				return RoleMapper.MapToDto(role);
 			});
 		});
 	}
@@ -35,9 +35,9 @@ export class RoleRepository implements IRepository<RoleDTO> {
 	 *
 	 * @param role
 	 */
-	async create(role: Partial<RoleDTO>): Promise<RoleDTO> {
+	async create(role: Partial<RoleDto>): Promise<RoleDto> {
 		return Role.create(role).then((data: Role) => {
-			return RoleMapper.MapToDTO(data);
+			return RoleMapper.MapToDto(data);
 		});
 	}
 
@@ -45,7 +45,7 @@ export class RoleRepository implements IRepository<RoleDTO> {
 	 *
 	 * @param role
 	 */
-	async update(role: Role, id: number ): Promise<boolean | number> {
+	async update(role: Role, id: number): Promise<boolean | number> {
 		return Role.update(role, { where: { id_role: id } }).then(
 			(data: Array<boolean | number>) => {
 				return data[0];

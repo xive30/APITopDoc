@@ -1,21 +1,24 @@
 import { IRepository } from "../core/repository.interface";
 import { IFullService, IService } from "../core/service.interface";
 import {
-	ScheduleAdminDTO,
-	ScheduleAdminUserDTO,
-} from "../Data/DTO/scheduleAdmin.dto";
+	ScheduleAdminDto,
+	ScheduleAdminUserDto,
+} from "../Data/Dto/scheduleAdmin.Dto";
 import { ScheduleAdmin } from "../Data/Models/scheduleAdmin.model";
 import { ISAdminRepository } from "../repository/scheduleAdmin.repository";
 
 export interface ISAdminService
-	extends IService<ScheduleAdminDTO>,
-		IFullService<ScheduleAdminUserDTO> {}
+	extends IService<ScheduleAdminDto>,
+		IFullService<ScheduleAdminUserDto> {}
 
 export class ScheduleAdminService implements ISAdminService {
 	private scheduleAdminRepository: ISAdminRepository;
 
 	constructor(scheduleAdminRepository: ISAdminRepository) {
 		this.scheduleAdminRepository = scheduleAdminRepository;
+	}
+	createFull(t: ScheduleAdminUserDto): Promise<ScheduleAdminUserDto | null> {
+		throw new Error("Method not implemented.");
 	}
 
 	/**
@@ -25,7 +28,7 @@ export class ScheduleAdminService implements ISAdminService {
 	 */
 	async findAllFull(
 		options?: any
-	): Promise<Array<ScheduleAdminUserDTO> | null> {
+	): Promise<Array<ScheduleAdminUserDto> | null> {
 		return this.scheduleAdminRepository.findAllFull(options).then((data) => {
 			return data;
 		});
@@ -36,7 +39,7 @@ export class ScheduleAdminService implements ISAdminService {
 	 * @param id
 	 * @returns
 	 */
-	async findById(id_td_user: number): Promise<ScheduleAdminDTO | null> {
+	async findById(id_td_user: number): Promise<ScheduleAdminDto | null> {
 		return this.scheduleAdminRepository.findById(id_td_user).then((data) => {
 			console.log(data);
 			return data;
@@ -48,7 +51,7 @@ export class ScheduleAdminService implements ISAdminService {
 	 * @param options
 	 * @returns
 	 */
-	async findAll(options?: any): Promise<Array<ScheduleAdminDTO> | null> {
+	async findAll(options?: any): Promise<Array<ScheduleAdminDto> | null> {
 		return this.scheduleAdminRepository.findAll(options).then((data) => {
 			return data;
 		});
@@ -59,9 +62,7 @@ export class ScheduleAdminService implements ISAdminService {
 	 * @param t
 	 * @returns
 	 */
-	async create(
-		scheduleAdmin: ScheduleAdmin
-	): Promise<ScheduleAdminDTO | null> {
+	async create(scheduleAdmin: ScheduleAdmin): Promise<ScheduleAdminDto | null> {
 		return this.scheduleAdminRepository.create(scheduleAdmin).then((data) => {
 			return data;
 		});
@@ -72,8 +73,13 @@ export class ScheduleAdminService implements ISAdminService {
 	 * @param t
 	 * @returns
 	 */
-	async update(scheduleAdmin: ScheduleAdmin,id_td_user: number): Promise<boolean | number> {
-		return this.scheduleAdminRepository.update(scheduleAdmin, id_td_user).then((data) => {
+	async update(
+		scheduleAdmin: ScheduleAdmin,
+		id_td_user: number
+	): Promise<boolean | number> {
+		return this.scheduleAdminRepository
+			.update(scheduleAdmin, id_td_user)
+			.then((data) => {
 				return data;
 			});
 	}

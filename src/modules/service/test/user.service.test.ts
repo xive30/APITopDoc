@@ -1,5 +1,5 @@
 import { IRepository } from "~/modules/core/repository.interface";
-import { UserDTO } from "../../Data/DTO/user.dto";
+import { UserDto } from "../../Data/Dto/user.Dto";
 import { UserService } from "../user.service";
 
 describe("UserService", () => {
@@ -44,17 +44,17 @@ describe("UserService", () => {
 /**
  * Mock with null data
  */
-class TestRepositoryNullData implements IRepository<UserDTO> {
-	findById(id: number): Promise<UserDTO | null> {
+class TestRepositoryNullData implements IRepository<UserDto> {
+	findById(id: number): Promise<UserDto | null> {
 		return new Promise((resolve, reject): void => {
 			resolve(null);
 		});
 	}
 
-	findAll(): Promise<UserDTO[]> {
+	findAll(): Promise<UserDto[]> {
 		throw new Error("Method not implemented.");
 	}
-	create(t: UserDTO): Promise<UserDTO> {
+	create(t: UserDto): Promise<UserDto> {
 		throw new Error("Method not implemented.");
 	}
 	delete(id: number): Promise<boolean> {
@@ -65,8 +65,8 @@ class TestRepositoryNullData implements IRepository<UserDTO> {
 /**
  * Mock with person
  */
-class TestRepositoryWithValue implements IRepository<UserDTO> {
-	findById(id: number): Promise<UserDTO | null> {
+class TestRepositoryWithValue implements IRepository<UserDto> {
+	findById(id: number): Promise<UserDto | null> {
 		const expected = {
 			nom: "Doe",
 			prenom: "John",
@@ -76,10 +76,10 @@ class TestRepositoryWithValue implements IRepository<UserDTO> {
 		});
 	}
 
-	findAll(): Promise<UserDTO[]> {
+	findAll(): Promise<UserDto[]> {
 		throw new Error("Method not implemented.");
 	}
-	create(t: UserDTO): Promise<UserDTO> {
+	create(t: UserDto): Promise<UserDto> {
 		throw new Error("Method not implemented.");
 	}
 	delete(id: number): Promise<boolean> {

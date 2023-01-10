@@ -1,12 +1,12 @@
 import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { EmailBannedDTO } from "../Data/DTO/emailBanned.dto";
+import { EmailBannedDto } from "../Data/Dto/emailBanned.Dto";
 import { EmailBanned } from "../Data/Models/emailBanned.model";
 
-export class EmailBannedService implements IService<EmailBannedDTO> {
-	private emailBannedRepository: IRepository<EmailBannedDTO>;
+export class EmailBannedService implements IService<EmailBannedDto> {
+	private emailBannedRepository: IRepository<EmailBannedDto>;
 
-	constructor(emailBannedRepository: IRepository<EmailBannedDTO>) {
+	constructor(emailBannedRepository: IRepository<EmailBannedDto>) {
 		this.emailBannedRepository = emailBannedRepository;
 	}
 
@@ -15,7 +15,7 @@ export class EmailBannedService implements IService<EmailBannedDTO> {
 	 * @param options
 	 * @returns
 	 */
-	async findAll(options?: any): Promise<Array<EmailBannedDTO> | null> {
+	async findAll(options?: any): Promise<Array<EmailBannedDto> | null> {
 		return this.emailBannedRepository.findAll(options).then((data) => {
 			return data;
 		});
@@ -26,7 +26,7 @@ export class EmailBannedService implements IService<EmailBannedDTO> {
 	 * @param id
 	 * @returns
 	 */
-	async findById(id_email_banned: number): Promise<EmailBannedDTO | null> {
+	async findById(id_email_banned: number): Promise<EmailBannedDto | null> {
 		return this.emailBannedRepository.findById(id_email_banned).then((data) => {
 			console.log(data);
 			return data;
@@ -38,7 +38,7 @@ export class EmailBannedService implements IService<EmailBannedDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async create(emailBanned: EmailBanned): Promise<EmailBannedDTO | null> {
+	async create(emailBanned: EmailBanned): Promise<EmailBannedDto | null> {
 		return this.emailBannedRepository.create(emailBanned).then((data) => {
 			return data;
 		});
@@ -49,8 +49,13 @@ export class EmailBannedService implements IService<EmailBannedDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(emailBanned: EmailBanned,id_emailBanned: number): Promise<boolean | number> {
-		return this.emailBannedRepository.update(emailBanned, id_emailBanned).then((data) => {
+	async update(
+		emailBanned: EmailBanned,
+		id_emailBanned: number
+	): Promise<boolean | number> {
+		return this.emailBannedRepository
+			.update(emailBanned, id_emailBanned)
+			.then((data) => {
 				return data;
 			});
 	}

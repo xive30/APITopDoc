@@ -1,19 +1,19 @@
 import { InputError, NotFoundError } from "../core/errors/errors";
 import { IRepository } from "../core/repository.interface";
-import { HolidayDTO } from "../Data/DTO/holiday.dto";
+import { HolidayDto } from "../Data/Dto/holiday.Dto";
 import { Holiday } from "../Data/Models/holiday.model";
 import { HolidayMapper } from "../Data/Mapper/holiday.mapper";
 
-export class HolidayRepository implements IRepository<HolidayDTO> {
+export class HolidayRepository implements IRepository<HolidayDto> {
 	/**
 	 *
 	 * @param id
 	 * @returns
 	 */
-	async findById(id: number): Promise<HolidayDTO | null> {
+	async findById(id: number): Promise<HolidayDto | null> {
 		const result = await Holiday.findByPk(id);
 		if (result === null) throw new NotFoundError("Holiday not found");
-		return HolidayMapper.MapToDTO(result);
+		return HolidayMapper.MapToDto(result);
 	}
 
 	/**
@@ -21,12 +21,12 @@ export class HolidayRepository implements IRepository<HolidayDTO> {
 	 * @param filter
 	 * @returns
 	 */
-	async findAll(filter: any): Promise<Array<HolidayDTO>> {
+	async findAll(filter: any): Promise<Array<HolidayDto>> {
 		return Holiday.findAll({
 			where: filter,
 		}).then((data: Array<Holiday>) => {
 			return data.map((holiday: Holiday) => {
-				return HolidayMapper.MapToDTO(holiday);
+				return HolidayMapper.MapToDto(holiday);
 			});
 		});
 	}
@@ -35,9 +35,9 @@ export class HolidayRepository implements IRepository<HolidayDTO> {
 	 *
 	 * @param holiday
 	 */
-	async create(holiday: Partial<HolidayDTO>): Promise<HolidayDTO> {
+	async create(holiday: Partial<HolidayDto>): Promise<HolidayDto> {
 		return Holiday.create(holiday).then((data: Holiday) => {
-			return HolidayMapper.MapToDTO(data);
+			return HolidayMapper.MapToDto(data);
 		});
 	}
 
@@ -45,7 +45,7 @@ export class HolidayRepository implements IRepository<HolidayDTO> {
 	 *
 	 * @param holiday
 	 */
-	async update(holiday: Holiday, id: number ): Promise<boolean | number> {
+	async update(holiday: Holiday, id: number): Promise<boolean | number> {
 		return Holiday.update(holiday, { where: { id_holiday: id } }).then(
 			(data: Array<boolean | number>) => {
 				return data[0];

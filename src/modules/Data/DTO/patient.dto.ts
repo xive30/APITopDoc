@@ -1,4 +1,4 @@
-export interface PatientUserDTO {
+export interface PatientUserDto {
 	id_td_user?: number;
 
 	firstname: string;
@@ -11,23 +11,25 @@ export interface PatientUserDTO {
 
 	email: string;
 
+	password?: string;
+
 	phone: number;
 
 	address: string;
 
 	zip_code: string;
-	
+
 	city: string;
 
 	secu_number_fr_fr: string;
 }
 
-export interface PatientDTO {
+export interface PatientDto {
 	id_td_user?: number;
 
 	secu_number_fr_fr: string;
 }
 
-export interface PatientFilterDTO {
+export interface PatientFilterDto {
 	secu_number_fr_fr: string;
 }

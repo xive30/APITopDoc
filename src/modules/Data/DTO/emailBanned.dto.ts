@@ -1,4 +1,4 @@
-export interface EmailBannedDTO {
+export interface EmailBannedDto {
 	email: string;
 
 	reason: string;

@@ -1,4 +1,4 @@
-export interface AppointmentDTO {
+export interface AppointmentDto {
 	id_td_user?: number;
 
 	id_activity?: number;

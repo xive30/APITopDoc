@@ -1,17 +1,17 @@
-import { TimetableDTO } from "./timetable.dto";
+import { TimetableDto } from "./timetable.Dto";
 
-export interface PlanningDTO {
+export interface PlanningDto {
 	start_validity: Date;
 
 	end_validity: Date;
 }
 
-export interface PlanningTimetableDTO {
+export interface PlanningTimetableDto {
 	id_Planning: number;
 
 	start_validity: Date;
 
 	end_validity: Date;
 
-	timetables?: TimetableDTO[] ;
+	timetables?: TimetableDto[];
 }

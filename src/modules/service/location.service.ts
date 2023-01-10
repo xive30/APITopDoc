@@ -1,12 +1,12 @@
-import { LocationDTO } from "../Data/DTO/location.dto";
+import { LocationDto } from "../Data/Dto/location.Dto";
 import { IRepository } from "../core/repository.interface";
 import { Location } from "../Data/Models/location.model";
 import { IService } from "../core/service.interface";
 
-export class LocationService implements IService<LocationDTO> {
-	private locationRepository: IRepository<LocationDTO>;
+export class LocationService implements IService<LocationDto> {
+	private locationRepository: IRepository<LocationDto>;
 
-	constructor(locationRepository: IRepository<LocationDTO>) {
+	constructor(locationRepository: IRepository<LocationDto>) {
 		this.locationRepository = locationRepository;
 	}
 
@@ -15,7 +15,7 @@ export class LocationService implements IService<LocationDTO> {
 	 * @param options
 	 * @returns
 	 */
-	async findAll(options?: any): Promise<Array<LocationDTO> | null> {
+	async findAll(options?: any): Promise<Array<LocationDto> | null> {
 		return this.locationRepository.findAll(options).then((data) => {
 			return data;
 		});
@@ -26,7 +26,7 @@ export class LocationService implements IService<LocationDTO> {
 	 * @param id
 	 * @returns
 	 */
-	async findById(id_location: number): Promise<LocationDTO | null> {
+	async findById(id_location: number): Promise<LocationDto | null> {
 		return this.locationRepository.findById(id_location).then((data) => {
 			console.log(data);
 			return data;
@@ -38,7 +38,7 @@ export class LocationService implements IService<LocationDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async create(location: Location): Promise<LocationDTO | null> {
+	async create(location: Location): Promise<LocationDto | null> {
 		return this.locationRepository.create(location).then((data) => {
 			return data;
 		});
@@ -49,8 +49,13 @@ export class LocationService implements IService<LocationDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(location: Location,id_location: number): Promise<boolean | number> {
-		return this.locationRepository.update(location, id_location).then((data) => {
+	async update(
+		location: Location,
+		id_location: number
+	): Promise<boolean | number> {
+		return this.locationRepository
+			.update(location, id_location)
+			.then((data) => {
 				return data;
 			});
 	}

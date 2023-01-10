@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { AppointmentDTO } from "../Data/DTO/appointment.dto";
+import { AppointmentDto } from "../Data/Dto/appointment.Dto";
 
 export class AppointmentHandler {
-	private appointmentService: IService<AppointmentDTO>;
+	private appointmentService: IService<AppointmentDto>;
 
-	constructor(appointmentService: IService<AppointmentDTO>) {
+	constructor(appointmentService: IService<AppointmentDto>) {
 		this.appointmentService = appointmentService;
 	}
 
@@ -43,7 +43,10 @@ export class AppointmentHandler {
 
 	updateAppointment = async (req: Request, res: Response) => {
 		try {
-			const result = await this.appointmentService.update(req.body, parseInt(req.params.id));
+			const result = await this.appointmentService.update(
+				req.body,
+				parseInt(req.params.id)
+			);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

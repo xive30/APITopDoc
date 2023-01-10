@@ -22,6 +22,9 @@ export class PlanningHandler {
 		try {
 			const result = await this.planningService.findById(
 				parseInt(req.params.id)
+
+
+				
 			);
 			if (result === null) {
 				return res.status(404).send();

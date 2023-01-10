@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { EmailBannedDTO } from "../Data/DTO/emailBanned.dto";
+import { EmailBannedDto } from "../Data/Dto/emailBanned.Dto";
 
 export class EmailBannedHandler {
-	private emailBannedService: IService<EmailBannedDTO>;
+	private emailBannedService: IService<EmailBannedDto>;
 
-	constructor(emailBannedService: IService<EmailBannedDTO>) {
+	constructor(emailBannedService: IService<EmailBannedDto>) {
 		this.emailBannedService = emailBannedService;
 	}
 
@@ -43,7 +43,10 @@ export class EmailBannedHandler {
 
 	updateEmailBanned = async (req: Request, res: Response) => {
 		try {
-			const result = await this.emailBannedService.update(req.body, parseInt(req.params.id));
+			const result = await this.emailBannedService.update(
+				req.body,
+				parseInt(req.params.id)
+			);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

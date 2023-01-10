@@ -1,9 +1,9 @@
-export interface HolidayDTO {
-    id_holiday: number;
+export interface HolidayDto {
+	id_holiday: number;
 
-    start_date: Date;
+	start_date: Date;
 
-    end_date: Date;
+	end_date: Date;
 
-    id_activity: number;
+	id_activity: number;
 }

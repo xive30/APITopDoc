@@ -1,12 +1,12 @@
 import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { RoleDTO } from "../Data/DTO/role.dto";
+import { RoleDto } from "../Data/Dto/role.Dto";
 import { Role } from "../Data/Models/role.model";
 
-export class RoleService implements IService<RoleDTO> {
-	private roleRepository: IRepository<RoleDTO>;
+export class RoleService implements IService<RoleDto> {
+	private roleRepository: IRepository<RoleDto>;
 
-	constructor(roleRepository: IRepository<RoleDTO>) {
+	constructor(roleRepository: IRepository<RoleDto>) {
 		this.roleRepository = roleRepository;
 	}
 
@@ -15,7 +15,7 @@ export class RoleService implements IService<RoleDTO> {
 	 * @param options
 	 * @returns
 	 */
-	async findAll(options?: any): Promise<Array<RoleDTO> | null> {
+	async findAll(options?: any): Promise<Array<RoleDto> | null> {
 		return this.roleRepository.findAll(options).then((data) => {
 			return data;
 		});
@@ -26,7 +26,7 @@ export class RoleService implements IService<RoleDTO> {
 	 * @param id
 	 * @returns
 	 */
-	async findById(id_role: number): Promise<RoleDTO | null> {
+	async findById(id_role: number): Promise<RoleDto | null> {
 		return this.roleRepository.findById(id_role).then((data) => {
 			console.log(data);
 			return data;
@@ -38,7 +38,7 @@ export class RoleService implements IService<RoleDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async create(role: Role): Promise<RoleDTO | null> {
+	async create(role: Role): Promise<RoleDto | null> {
 		return this.roleRepository.create(role).then((data) => {
 			return data;
 		});
@@ -49,10 +49,10 @@ export class RoleService implements IService<RoleDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(role: Role,id_role: number): Promise<boolean | number> {
+	async update(role: Role, id_role: number): Promise<boolean | number> {
 		return this.roleRepository.update(role, id_role).then((data) => {
-				return data;
-			});
+			return data;
+		});
 	}
 
 	/**

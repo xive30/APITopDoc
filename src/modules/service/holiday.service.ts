@@ -1,12 +1,12 @@
 import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { HolidayDTO } from "../Data/DTO/holiday.dto";
+import { HolidayDto } from "../Data/Dto/holiday.Dto";
 import { Holiday } from "../Data/Models/holiday.model";
 
-export class HolidayService implements IService<HolidayDTO> {
-	private holidayRepository: IRepository<HolidayDTO>;
+export class HolidayService implements IService<HolidayDto> {
+	private holidayRepository: IRepository<HolidayDto>;
 
-	constructor(holidayRepository: IRepository<HolidayDTO>) {
+	constructor(holidayRepository: IRepository<HolidayDto>) {
 		this.holidayRepository = holidayRepository;
 	}
 
@@ -15,7 +15,7 @@ export class HolidayService implements IService<HolidayDTO> {
 	 * @param options
 	 * @returns
 	 */
-	async findAll(options?: any): Promise<Array<HolidayDTO> | null> {
+	async findAll(options?: any): Promise<Array<HolidayDto> | null> {
 		return this.holidayRepository.findAll(options).then((data) => {
 			return data;
 		});
@@ -26,7 +26,7 @@ export class HolidayService implements IService<HolidayDTO> {
 	 * @param id
 	 * @returns
 	 */
-	async findById(id_holiday: number): Promise<HolidayDTO | null> {
+	async findById(id_holiday: number): Promise<HolidayDto | null> {
 		return this.holidayRepository.findById(id_holiday).then((data) => {
 			console.log(data);
 			return data;
@@ -38,7 +38,7 @@ export class HolidayService implements IService<HolidayDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async create(holiday: Holiday): Promise<HolidayDTO | null> {
+	async create(holiday: Holiday): Promise<HolidayDto | null> {
 		return this.holidayRepository.create(holiday).then((data) => {
 			return data;
 		});
@@ -49,10 +49,13 @@ export class HolidayService implements IService<HolidayDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(holiday: Holiday,id_holiday: number): Promise<boolean | number> {
+	async update(
+		holiday: Holiday,
+		id_holiday: number
+	): Promise<boolean | number> {
 		return this.holidayRepository.update(holiday, id_holiday).then((data) => {
-				return data;
-			});
+			return data;
+		});
 	}
 
 	/**

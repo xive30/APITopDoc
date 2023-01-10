@@ -53,7 +53,7 @@ patientRouter.get("/:id", patientHandler.getPatientById);
  *         in: body
  *         required: true
  *         type: object
- *         default: {"json à définir": "json à définir",}
+ *         default: {"firstname": "Test", "lastname": "Test", "gender": "Homme", "birthday": "2000-00-00", "email": "test@test.com", "phone": "0606060606", "address": "50 Rue des tests ", "zip_code": "62000", "city": "test", "secu_number_fr_fr": "016215848641523"}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.

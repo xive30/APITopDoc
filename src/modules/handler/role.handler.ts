@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { RoleDTO } from "../Data/DTO/role.dto";
+import { RoleDto } from "../Data/Dto/role.Dto";
 
 export class RoleHandler {
-	private roleService: IService<RoleDTO>;
+	private roleService: IService<RoleDto>;
 
-	constructor(roleService: IService<RoleDTO>) {
+	constructor(roleService: IService<RoleDto>) {
 		this.roleService = roleService;
 	}
 
@@ -41,7 +41,10 @@ export class RoleHandler {
 
 	updateRole = async (req: Request, res: Response) => {
 		try {
-			const result = await this.roleService.update(req.body, parseInt(req.params.id));
+			const result = await this.roleService.update(
+				req.body,
+				parseInt(req.params.id)
+			);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

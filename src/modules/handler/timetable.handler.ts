@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { TimetableDTO } from "../Data/DTO/timetable.dto";
+import { TimetableDto } from "../Data/Dto/timetable.Dto";
 
 export class TimetableHandler {
-	private timetableService: IService<TimetableDTO>;
+	private timetableService: IService<TimetableDto>;
 
-	constructor(timetableService: IService<TimetableDTO>) {
+	constructor(timetableService: IService<TimetableDto>) {
 		this.timetableService = timetableService;
 	}
 
@@ -44,7 +44,10 @@ export class TimetableHandler {
 
 	updateTimetable = async (req: Request, res: Response) => {
 		try {
-			const result = await this.timetableService.update(req.body, parseInt(req.params.id));
+			const result = await this.timetableService.update(
+				req.body,
+				parseInt(req.params.id)
+			);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

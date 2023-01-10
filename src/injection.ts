@@ -1,5 +1,6 @@
 import { ActivityHandler } from "./modules/handler/activity.handler";
 import { AppointmentHandler } from "./modules/handler/appointment.handler";
+import { AuthHandler } from "./modules/handler/authHandler";
 import { EmailBannedHandler } from "./modules/handler/emailBanned.handler";
 import { HolidayHandler } from "./modules/handler/holiday.handler";
 import { LocationHandler } from "./modules/handler/location.handler";
@@ -12,6 +13,7 @@ import { UserHandler } from "./modules/handler/user.handler";
 
 import { ActivityRepository } from "./modules/repository/activity.repository";
 import { AppointmentRepository } from "./modules/repository/appointment.repository";
+import { AuthRepository } from "./modules/repository/auth.repository";
 import { EmailBannedRepository } from "./modules/repository/emailBanned.repository";
 import { HolidayRepository } from "./modules/repository/holiday.repository";
 import { LocationRepository } from "./modules/repository/location.repository";
@@ -24,6 +26,7 @@ import { UserRepository } from "./modules/repository/user.repository";
 
 import { ActivityService } from "./modules/service/activity.service";
 import { AppointmentService } from "./modules/service/appointment.service";
+import { AuthService } from "./modules/service/auth.service";
 import { EmailBannedService } from "./modules/service/emailBanned.service";
 import { HolidayService } from "./modules/service/holiday.service";
 import { LocationService } from "./modules/service/location.service";
@@ -46,3 +49,4 @@ export const roleHandler = new RoleHandler(new RoleService(new RoleRepository())
 export const scheduleAdminHandler = new ScheduleAdminHandler(new ScheduleAdminService(new ScheduleAdminRepository()));
 export const timetableHandler = new TimetableHandler(new TimetableService(new TimetableRepository()));
 export const userHandler = new UserHandler(new UserService(new UserRepository()));
+export const authHandler = new AuthHandler(new AuthService(new AuthRepository()));

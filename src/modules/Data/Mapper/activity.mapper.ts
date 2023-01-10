@@ -1,32 +1,34 @@
 import { Activity } from "../Models/activity.model";
-import { ActivityDTO, ActivityLocationDTO } from "../DTO/activity.dto";
+import { ActivityDto, ActivityLocationDto } from "../Dto/activity.Dto";
 
 export class ActivityMapper {
-	static MapToActivityLocationDTO(activity: Activity | null): ActivityLocationDTO {
+	static MapToActivityLocationDto(
+		activity: Activity | null
+	): ActivityLocationDto {
 		if (activity === null) return null as any;
 
-		const DTO: ActivityLocationDTO = {
+		const Dto: ActivityLocationDto = {
 			id_activity: activity.id_activity,
 			activity_type: activity.activity_type,
 			description: activity.description,
 			activity_validation: activity.activity_validation,
 			id_location: activity.id_location,
-			address: activity.get({plain: true}).td_location.address,
-			zip_code: activity.get({plain: true}).td_location.zip_code,
-			city: activity.get({plain: true}).td_location.city,
+			address: activity.get({ plain: true }).td_location.address,
+			zip_code: activity.get({ plain: true }).td_location.zip_code,
+			city: activity.get({ plain: true }).td_location.city,
 		};
-		return DTO;
+		return Dto;
 	}
-	
-	static MapToDTO(activity: Activity | null): ActivityDTO {
+
+	static MapToDto(activity: Activity | null): ActivityDto {
 		if (activity === null) return null as any;
 
-		const DTO: ActivityDTO = {
+		const Dto: ActivityDto = {
 			id_activity: activity.id_activity,
 			activity_type: activity.activity_type,
 			description: activity.description,
 			activity_validation: activity.activity_validation,
 		};
-		return DTO;
+		return Dto;
 	}
 }

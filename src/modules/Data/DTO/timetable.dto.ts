@@ -1,13 +1,13 @@
-export interface TimetableDTO  {
-    id_timetable?: number;
+export interface TimetableDto {
+	id_timetable?: number;
 
-    td_day: string;
+	td_day: string;
 
-    timetable_start: Date;
+	timetable_start: Date;
 
-    timetable_end: Date;
+	timetable_end: Date;
 
-    duration: number;
+	duration: number;
 
-    id_planning: number;
+	id_planning: number;
 }

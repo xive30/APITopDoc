@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { ActivityDTO } from "../Data/DTO/activity.dto";
+import { ActivityDto } from "../Data/Dto/activity.Dto";
 
 export class ActivityHandler {
-	private activityService: IService<ActivityDTO>;
+	private activityService: IService<ActivityDto>;
 
-	constructor(activityService: IService<ActivityDTO>) {
+	constructor(activityService: IService<ActivityDto>) {
 		this.activityService = activityService;
 	}
 
@@ -49,7 +49,10 @@ export class ActivityHandler {
 
 	updateActivity = async (req: Request, res: Response) => {
 		try {
-			const result = await this.activityService.update(req.body, parseInt(req.params.id));
+			const result = await this.activityService.update(
+				req.body,
+				parseInt(req.params.id)
+			);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

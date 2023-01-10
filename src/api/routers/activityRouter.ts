@@ -53,7 +53,7 @@ activityRouter.get("/:id", activityHandler.getActivityById);
  *         in: body
  *         required: true
  *         type: object
- *         default: {"json à définir": "json à définir",}
+ *         default: {"activity_type": "Genie Maléfique", "description": "Lobotomie gratuite", "address": "9 rue du régiment de la chadière", "zip_code": "62200", "city": "Boulogne sur Mer"}
  *      responses:
  *        200:
  *          description: La requête s'est bien déroulée.

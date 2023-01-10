@@ -1,12 +1,12 @@
 import { IRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
 import { Appointment } from "../Data/Models/appointment.model";
-import { AppointmentDTO } from "../Data/DTO/appointment.dto";
+import { AppointmentDto } from "../Data/Dto/appointment.Dto";
 
-export class AppointmentService implements IService<AppointmentDTO> {
-	private appointmentRepository: IRepository<AppointmentDTO>;
+export class AppointmentService implements IService<AppointmentDto> {
+	private appointmentRepository: IRepository<AppointmentDto>;
 
-	constructor(appointmentRepository: IRepository<AppointmentDTO>) {
+	constructor(appointmentRepository: IRepository<AppointmentDto>) {
 		this.appointmentRepository = appointmentRepository;
 	}
 
@@ -15,7 +15,7 @@ export class AppointmentService implements IService<AppointmentDTO> {
 	 * @param options
 	 * @returns
 	 */
-	async findAll(options?: any): Promise<Array<AppointmentDTO> | null> {
+	async findAll(options?: any): Promise<Array<AppointmentDto> | null> {
 		return this.appointmentRepository.findAll(options).then((data) => {
 			return data;
 		});
@@ -26,7 +26,7 @@ export class AppointmentService implements IService<AppointmentDTO> {
 	 * @param id
 	 * @returns
 	 */
-	async findById(id: number): Promise<AppointmentDTO | null> {
+	async findById(id: number): Promise<AppointmentDto | null> {
 		return this.appointmentRepository.findById(id).then((data) => {
 			console.log(data);
 			return data;
@@ -38,7 +38,7 @@ export class AppointmentService implements IService<AppointmentDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async create(appointment: Appointment): Promise<AppointmentDTO | null> {
+	async create(appointment: Appointment): Promise<AppointmentDto | null> {
 		return this.appointmentRepository.create(appointment).then((data) => {
 			return data;
 		});
@@ -49,8 +49,13 @@ export class AppointmentService implements IService<AppointmentDTO> {
 	 * @param t
 	 * @returns
 	 */
-	async update(appointment: Appointment,id_appointment: number): Promise<boolean | number> {
-		return this.appointmentRepository.update(appointment, id_appointment).then((data) => {
+	async update(
+		appointment: Appointment,
+		id_appointment: number
+	): Promise<boolean | number> {
+		return this.appointmentRepository
+			.update(appointment, id_appointment)
+			.then((data) => {
 				return data;
 			});
 	}

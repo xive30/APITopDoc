@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { HolidayDTO } from "../Data/DTO/holiday.dto";
+import { HolidayDto } from "../Data/Dto/holiday.Dto";
 
 export class HolidayHandler {
-	private holidayService: IService<HolidayDTO>;
+	private holidayService: IService<HolidayDto>;
 
-	constructor(holidayService: IService<HolidayDTO>) {
+	constructor(holidayService: IService<HolidayDto>) {
 		this.holidayService = holidayService;
 	}
 
@@ -43,7 +43,10 @@ export class HolidayHandler {
 
 	updateHoliday = async (req: Request, res: Response) => {
 		try {
-			const result = await this.holidayService.update(req.body, parseInt(req.params.id));
+			const result = await this.holidayService.update(
+				req.body,
+				parseInt(req.params.id)
+			);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);

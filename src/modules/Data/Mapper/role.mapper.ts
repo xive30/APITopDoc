@@ -1,13 +1,13 @@
-import { RoleDTO } from "../DTO/role.dto";
+import { RoleDto } from "../Dto/role.Dto";
 import { Role } from "../Models/role.model";
 
 export class RoleMapper {
-	static MapToDTO(role: Role | null): RoleDTO {
+	static MapToDto(role: Role | null): RoleDto {
 		if (role === null) return null as any;
 
-		const DTO: RoleDTO = {
+		const Dto: RoleDto = {
 			name_role: role.name_role,
 		};
-		return DTO;
+		return Dto;
 	}
 }

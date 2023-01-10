@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { IService } from "../core/service.interface";
-import { LocationDTO } from "../Data/DTO/location.dto";
+import { LocationDto } from "../Data/Dto/location.Dto";
 
 export class LocationHandler {
-	private locationService: IService<LocationDTO>;
+	private locationService: IService<LocationDto>;
 
-	constructor(locationService: IService<LocationDTO>) {
+	constructor(locationService: IService<LocationDto>) {
 		this.locationService = locationService;
 	}
 
@@ -43,7 +43,10 @@ export class LocationHandler {
 
 	updateLocation = async (req: Request, res: Response) => {
 		try {
-			const result = await this.locationService.update(req.body, parseInt(req.params.id));
+			const result = await this.locationService.update(
+				req.body,
+				parseInt(req.params.id)
+			);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(500).json(error);
