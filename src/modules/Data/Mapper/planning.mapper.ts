@@ -1,5 +1,7 @@
+import { HolidayDto } from "../Dto/holiday.Dto";
 import { PlanningDto, PlanningTimetableDto } from "../Dto/planning.Dto";
 import { TimetableDto } from "../Dto/timetable.Dto";
+import { Holiday } from "../Models/holiday.model";
 import { Planning } from "../Models/planning.model";
 import { Timetable } from "../Models/timetable.model";
 
@@ -32,12 +34,23 @@ export class PlanningMapper {
 			return timetableDto;
 		});
 
+		let holidays: Holiday[] = planning.get({plain: true}).td_activity.td_holidays;
+
+		const holidaysData = holidays.map((holiday) => {
+			const holidayDto: HolidayDto = {
+				start_date: holiday.start_date,
+				end_date: holiday.end_date
+			}
+			return holidayDto;
+		})
+
 		const Dto: PlanningTimetableDto = {
 			id_planning: planning.get("id_planning"),
 			start_validity: planning.start_validity,
 			end_validity: planning.end_validity,
-			timetables: timetableData,
 			id_activity: planning.id_activity,
+			holidays: holidaysData,
+			timetables: timetableData,
 		};
 		return Dto;
 	}

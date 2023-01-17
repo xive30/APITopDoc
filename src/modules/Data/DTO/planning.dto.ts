@@ -1,3 +1,4 @@
+import { HolidayDto } from "./holiday.Dto";
 import { TimetableDto } from "./timetable.Dto";
 
 export interface PlanningDto {
@@ -16,6 +17,8 @@ export interface PlanningTimetableDto {
 	end_validity: Date;
 
 	timetables?: TimetableDto[];
+
+	holidays?: HolidayDto[];
 
 	id_activity: Number;
 }
