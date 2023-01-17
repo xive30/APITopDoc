@@ -4,14 +4,18 @@ export interface PlanningDto {
 	start_validity: Date;
 
 	end_validity: Date;
+
+	id_activity: Number;
 }
 
 export interface PlanningTimetableDto {
-	id_Planning: number;
+	id_planning?: number;
 
 	start_validity: Date;
 
 	end_validity: Date;
 
 	timetables?: TimetableDto[];
+
+	id_activity: Number;
 }

@@ -1,4 +1,5 @@
 export interface PatientUserDto {
+	[x: string]: any;
 	id_td_user?: number;
 
 	firstname: string;

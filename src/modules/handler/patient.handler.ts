@@ -1,16 +1,18 @@
 import { Request, Response } from "express";
-import { IPatientService } from "../service/patient.service";
+import { IService } from "../core/service.interface";
+import { PatientUserDto } from "../Data/Dto/patient.Dto";
+
 
 export class PatientHandler {
-	private patientService: IPatientService;
+	private patientService: IService<PatientUserDto>;
 
-	constructor(patientService: IPatientService) {
+	constructor(patientService: IService<PatientUserDto>) {
 		this.patientService = patientService;
 	}
 
 	getPatients = async (req: Request, res: Response) => {
 		try {
-			const result = await this.patientService.findAllFull();
+			const result = await this.patientService.findAll();
 			if (result === null) return res.status(404).send();
 			res.status(200).json(result);
 		} catch (err) {

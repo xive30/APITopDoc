@@ -1,28 +1,19 @@
-import {
-	ScheduleAdminDto,
-	ScheduleAdminUserDto,
-} from "../Data/Dto/scheduleAdmin.Dto";
+import { ScheduleAdminUserDto } from "../Data/Dto/scheduleAdmin.Dto";
 import { ScheduleAdmin } from "../Data/Models/scheduleAdmin.model";
 import { ScheduleAdminMapper } from "../Data/Mapper/scheduleAdmin.mapper";
-import { IFullRepository, IRepository } from "../core/repository.interface";
+import { IFullRepository } from "../core/repository.interface";
 import { InputError, NotFoundError } from "../core/errors/errors";
 import { User } from "../Data/Models/user.model";
 import sequelize from "~/Database/sequelize";
 
-export interface ISAdminRepository
-	extends IRepository<ScheduleAdminDto>,
-		IFullRepository<ScheduleAdminUserDto> {}
+export class ScheduleAdminRepository implements IFullRepository<ScheduleAdminUserDto> {
 
-export class ScheduleAdminRepository implements ISAdminRepository {
-	createFull(t: ScheduleAdminUserDto): Promise<ScheduleAdminUserDto | null> {
-		throw new Error("Method not implemented.");
-	}
 	/**
 	 *
 	 * @param filter
 	 * @returns
 	 */
-	async findAllFull(filter: any): Promise<ScheduleAdminUserDto[]> {
+	async findAll(filter: any): Promise<ScheduleAdminUserDto[]> {
 		const scheduleAdmins = await ScheduleAdmin.findAll({
 			where: filter,
 			include: User,
@@ -41,25 +32,10 @@ export class ScheduleAdminRepository implements ISAdminRepository {
 	 * @param id
 	 * @returns
 	 */
-	async findById(id: number): Promise<ScheduleAdminDto | null> {
+	async findById(id: number): Promise<ScheduleAdminUserDto | null> {
 		const result = await ScheduleAdmin.findByPk(id);
 		if (result === null) throw new NotFoundError("ScheduleAdmin not found");
-		return ScheduleAdminMapper.MapToDto(result);
-	}
-
-	/**
-	 *
-	 * @param filter
-	 * @returns
-	 */
-	async findAll(filter: any): Promise<Array<ScheduleAdminDto>> {
-		return ScheduleAdmin.findAll({
-			where: filter,
-		}).then((data: Array<ScheduleAdmin>) => {
-			return data.map((scheduleAdmin: ScheduleAdmin) => {
-				return ScheduleAdminMapper.MapToDto(scheduleAdmin);
-			});
-		});
+		return ScheduleAdminMapper.MapToFullSAdminDto(result);
 	}
 
 	/**

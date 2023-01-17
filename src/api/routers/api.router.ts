@@ -3,6 +3,7 @@ import { activityRouter } from "./activityRouter";
 import { appointmentRouter } from "./appointmentRouter";
 import { authRouter } from "./authRouter";
 import { emailBannedRouter } from "./emailBannedRouter";
+import { fullPlanningRouter } from "./fullPlanning.Router";
 import { holidayRouter } from "./holidayRouter";
 import { locationRouter } from "./locationRouter";
 import { patientRouter } from "./patientRouter";
@@ -21,6 +22,7 @@ apiRouter.use('/api/v1/holidays', holidayRouter)
 apiRouter.use('/api/v1/locations', locationRouter )
 apiRouter.use('/api/v1/patients', patientRouter)
 apiRouter.use('/api/v1/plannings', planningRouter)
+apiRouter.use('/api/v1/fullplannings', fullPlanningRouter)
 apiRouter.use('/api/v1/roles', roleRouter)
 apiRouter.use('/api/v1/schedule-admins', scheduleAdminRouter)
 apiRouter.use('/api/v1/timetables', timetableRouter)

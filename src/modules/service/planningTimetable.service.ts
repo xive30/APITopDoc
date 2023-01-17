@@ -1,13 +1,16 @@
-import { IRepository } from "../core/repository.interface";
+import { IFullRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
-import { PlanningDto } from "../Data/Dto/planning.Dto";
+import { PlanningTimetableDto } from "../Data/Dto/planning.Dto";
 import { Planning } from "../Data/Models/planning.model";
 
-export class PlanningService implements IService<PlanningDto> {
-	private planningRepository: IRepository<PlanningDto>;
+export class PlanningTimetableService implements IService<PlanningTimetableDto> {
+	private planningRepository: IFullRepository<PlanningTimetableDto>;
 
-	constructor(planningRepository: IRepository<PlanningDto>) {
+	constructor(planningRepository: IFullRepository<PlanningTimetableDto>) {
 		this.planningRepository = planningRepository;
+	}
+	createFull(t: PlanningTimetableDto): Promise<PlanningTimetableDto | null> {
+		throw new Error("Method not implemented.");
 	}
 
 	/**
@@ -15,7 +18,9 @@ export class PlanningService implements IService<PlanningDto> {
 	 * @param options
 	 * @returns
 	 */
-	async findAll(options?: any): Promise<Array<PlanningDto> | null> {
+	async findAll(
+		options?: any
+	): Promise<Array<PlanningTimetableDto> | null> {
 		return this.planningRepository.findAll(options).then((data) => {
 			return data;
 		});
@@ -26,7 +31,7 @@ export class PlanningService implements IService<PlanningDto> {
 	 * @param id
 	 * @returns
 	 */
-	async findById(id_planning: number): Promise<PlanningDto | null> {
+	async findById(id_planning: number): Promise<PlanningTimetableDto | null> {
 		return this.planningRepository.findById(id_planning).then((data) => {
 			console.log(data);
 			return data;
@@ -38,7 +43,7 @@ export class PlanningService implements IService<PlanningDto> {
 	 * @param t
 	 * @returns
 	 */
-	async create(planning: Planning): Promise<PlanningDto | null> {
+	async create(planning: Planning): Promise<PlanningTimetableDto | null> {
 		return this.planningRepository.create(planning).then((data) => {
 			return data;
 		});

@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
-import { IPlanningService } from "../service/planning.service";
+import { IService } from "../core/service.interface";
+import { PlanningDto } from "../Data/Dto/planning.Dto";
 
 export class PlanningHandler {
-	private planningService: IPlanningService;
+	private planningService: IService<PlanningDto>;
 
-	constructor(planningService: IPlanningService) {
+	constructor(planningService: IService<PlanningDto>) {
 		this.planningService = planningService;
 	}
 
 	getplannings = async (req: Request, res: Response) => {
 		try {
-			const result = await this.planningService.findAllFull();
+			const result = await this.planningService.findAll();
 			if (result === null) return res.status(404).send();
 			res.status(200).json(result);
 		} catch (err) {

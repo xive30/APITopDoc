@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../../../Database/sequelize";
+import { TimetableDto } from "../Dto/timetable.Dto";
 
 export class Planning extends Model {
 	id_planning!: number;
@@ -7,6 +8,10 @@ export class Planning extends Model {
 	start_validity: Date;
 
 	end_validity: Date;
+
+    id_activity: Number;
+
+    timetables: TimetableDto[] | undefined;
 }
 
 const concatRequiredMessage = (data: string) => {

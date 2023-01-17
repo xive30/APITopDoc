@@ -2,7 +2,6 @@ import { PlanningDto, PlanningTimetableDto } from "../Dto/planning.Dto";
 import { TimetableDto } from "../Dto/timetable.Dto";
 import { Planning } from "../Models/planning.model";
 import { Timetable } from "../Models/timetable.model";
-import { TimetableMapper } from "./timetable.mapper";
 
 export class PlanningMapper {
 	static MapToDto(planning: Planning | null): PlanningDto {
@@ -11,6 +10,7 @@ export class PlanningMapper {
 		const Dto: PlanningDto = {
 			start_validity: planning.start_validity,
 			end_validity: planning.end_validity,
+			id_activity: planning.id_activity
 		};
 		return Dto;
 	}
@@ -33,10 +33,11 @@ export class PlanningMapper {
 		});
 
 		const Dto: PlanningTimetableDto = {
-			id_Planning: planning.get("id_planning"),
+			id_planning: planning.get("id_planning"),
 			start_validity: planning.start_validity,
 			end_validity: planning.end_validity,
 			timetables: timetableData,
+			id_activity: planning.id_activity,
 		};
 		return Dto;
 	}

@@ -7,17 +7,13 @@ import { User } from "../Data/Models/user.model";
 import sequelize from "~/Database/sequelize";
 import { Location } from "../Data/Models/location.model";
 
-export interface IPatientRepository
-	extends IRepository<PatientDto>,
-		IFullRepository<PatientUserDto> {}
-
-export class PatientRepository implements IPatientRepository {
+export class PatientRepository implements IFullRepository<PatientUserDto> {
 	/**
 	 *
 	 * @param filter
 	 * @returns
 	 */
-	async findAllFull(filter: any): Promise<PatientUserDto[]> {
+	async findAll(filter: any): Promise<PatientUserDto[]> {
 		const patients = await Patient.findAll({
 			where: filter,
 			include: [{ model: User, include: [Location] }],
@@ -37,32 +33,17 @@ export class PatientRepository implements IPatientRepository {
 	 * @param id
 	 * @returns
 	*/
-	async findById(id: number): Promise<PatientDto | null> {
+	async findById(id: number): Promise<PatientUserDto | null> {
 		const result = await Patient.findByPk(id);
 		if (result === null) throw new NotFoundError("Patient not found");
-		return PatientMapper.MapToDto(result);
+		return PatientMapper.MapToFullPatientDto(result);
 	}
-	
-	/**
-	 *
-	 * @param filter
-	 * @returns
-	*/
-	async findAll(filter: any): Promise<Array<PatientDto>> {
-		return Patient.findAll({
-			where: filter,
-		}).then((data: Array<Patient>) => {
-			return data.map((patient: Patient) => {
-				return PatientMapper.MapToDto(patient);
-			});
-		});
-	}
-	
+
 	/**
 	 *
 	 * @param patient
 	*/
-	async createFull(patient: Partial<PatientUserDto>): Promise<PatientUserDto> {
+	async create(patient: Partial<PatientUserDto>): Promise<PatientUserDto> {
 		const t = await sequelize.transaction();
 
 		try {
@@ -124,20 +105,40 @@ export class PatientRepository implements IPatientRepository {
 				throw err;
 			}
 		}
-		
-		create(t: PatientDto): Promise<PatientDto> {
-			throw new Error("Method not implemented.");
-		}
+
 	/**
 	 *
 	 * @param patient
 	 */
-	async update(patient: Patient, id: number): Promise<boolean | number> {
-		return Patient.update(patient, { where: { id_td_user: id } }).then(
-			(data: Array<boolean | number>) => {
-				return data[0];
-			}
-		);
+	async update(patient: PatientUserDto, id: number): Promise<boolean | number> {
+		const userData = {
+			firstname: patient.firstname,
+			lastname: patient.lastname,
+			gender: patient.gender,
+			birthday: patient.birthday,
+			email: patient.email,
+			phone: patient.phone,
+		};
+
+		const patientData = {
+			secu_number_fr_fr: patient.secu_number_fr_fr,
+		};
+		try {
+			return await sequelize.transaction(async (t) => {
+				await User.update(userData, {
+					where: { id_td_user: id },
+					transaction: t,
+				});
+
+				const updatedPatient = await patient.update(patientData, {
+					where: { id_td_user: id },
+					transaction: t,
+				});
+				return updatedPatient[0];
+			});
+		} catch (error) {
+			throw error;
+		}
 	}
 
 	/**
