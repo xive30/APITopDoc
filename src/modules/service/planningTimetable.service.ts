@@ -1,5 +1,8 @@
+import { create } from "domain";
 import { IFullRepository } from "../core/repository.interface";
 import { IService } from "../core/service.interface";
+import { AppointmentDto } from "../Data/Dto/appointment.Dto";
+import { HolidayDto } from "../Data/Dto/holiday.Dto";
 import { PlanningTimetableDto } from "../Data/Dto/planning.Dto";
 import { TimetableDto } from "../Data/Dto/timetable.Dto";
 import { Planning } from "../Data/Models/planning.model";
@@ -32,60 +35,73 @@ export class PlanningTimetableService
 	async findById(id_planning: number): Promise<PlanningTimetableDto | null> {
 		const data: any = await this.planningRepository.findById(id_planning);
 
-		function diffDates(timetable_start: string, timetable_end: string) {
-			// Convertir les time without timezone en instances de Date
-			const start = new Date("1970-01-01 " + timetable_start);
-			const end = new Date("1970-01-01 " + timetable_end);
-			// Obtenir la différence en millisecondes
-			const diff = end.getTime() - start.getTime();
-			// Convertir la différence en minutes
-			const diffInMinutes = diff / (1000 * 60);
-			return diffInMinutes;
-		}
-
-		function substractTimezone(timeWithTimezone: Date) {
-			let timeWithTz = new Date("1970-01-01 " + timeWithTimezone);
-			let timeWithoutTz = new Date();
-			timeWithoutTz.setUTCHours(
-				timeWithTz.getUTCHours(),
-				timeWithTz.getUTCMinutes(),
-				timeWithTz.getUTCSeconds(),
-				timeWithTz.getUTCMilliseconds()
+		// Slot for appointments
+		data.timetables?.map((timetable: TimetableDto) => {
+			
+			const workhour = this.diffDates(
+				timetable.timetable_start.toLocaleString(),
+				timetable.timetable_end.toLocaleString()
 			);
-			return timeWithoutTz;
-		}
+			const nbCreneaux = workhour / timetable.duration;
 
-		// Holidays
-		const today = new Date();
-		if (
-			today >= new Date(data.holidays[0].start_date) &&
-			today <= new Date(data.holidays[0].end_date)
-		) {
-			console.log("No slot today! holiday!");
-			const holiday = { date: today, holiday: true };
-		} else {
-			// Slot for appointments
-			data.timetables?.map((timetable: TimetableDto) => {
-				const workhour = diffDates(
-					timetable.timetable_start.toLocaleString(),
-					timetable.timetable_end.toLocaleString()
-				);
-				const nbCreneaux = workhour / timetable.duration;
+			let creneauxTab: any[] = [];
+			for (let i = 0; i < nbCreneaux; i++) {
+				const startHour = new Date(
+					this.substractTimezone(timetable.timetable_start).getTime() +
+						timetable.duration * 60 * 1000 * i
+				).toLocaleTimeString();
+				const endHour = new Date(
+					this.substractTimezone(timetable.timetable_start).getTime() +
+						timetable.duration * 60 * 1000 * (i + 1)
+				).toLocaleTimeString();
+				const newCreneau = { startHour: startHour, endHour: endHour, reserved: false };
+				creneauxTab.push(newCreneau);
+			}
 
-				let creneauxTab: any[] = [];
+			const day = this.attributeDate(timetable.td_day);
+			
+			// Holidays
+			data.holidays?.map((holiday: HolidayDto) => {
+				let startHoliday = new Date(holiday.end_date);
+				let endHoliday = new Date(holiday.end_date);
+				let checkDate = new Date(day);
 
-				for (let i = 0; i < nbCreneaux; i++) {
-					const startHour = new Date(substractTimezone(timetable.timetable_start).getTime() + timetable.duration * 60 * 1000 * i).toLocaleTimeString()
-					const endHour = new Date(substractTimezone(timetable.timetable_start).getTime() + timetable.duration * 60 * 1000 * (i+1)).toLocaleTimeString()
-
-					const newCreneau = {startHour: startHour, endHour: endHour}
-					creneauxTab.push(newCreneau);
+				if (checkDate.getFullYear() > startHoliday.getFullYear() && checkDate.getFullYear() < endHoliday.getFullYear()) {
+					console.log("La date est entre les vacances");
+				} else if (checkDate.getFullYear() === startHoliday.getFullYear() && checkDate.getFullYear() === endHoliday.getFullYear()) {
+					if (checkDate.getMonth() > startHoliday.getMonth() && checkDate.getMonth() < endHoliday.getMonth()) {
+						console.log("La date est entre les vacances");
+					} else if (checkDate.getMonth() === startHoliday.getMonth() && checkDate.getMonth() === endHoliday.getMonth()) {
+						if (checkDate.getDate() >= startHoliday.getDate() && checkDate.getDate() <= endHoliday.getDate()) {
+							console.log("La date est entre les vacances");
+							creneauxTab = ["holiday"];
+						}
+					}
 				}
-				console.log({jour: timetable.td_day, minutes: workhour, nbCrenaux: nbCreneaux, creneaux: creneauxTab});
-				
 			});
-		}
-		return this.planningRepository.findById(id_planning);
+			const planning = ({
+				jour: day,
+				minutes: workhour,
+				nbCrenaux: nbCreneaux,
+				creneaux: creneauxTab,
+			});
+
+			console.log(planning);
+		});
+
+		data.appointments?.map((appointment: AppointmentDto) => {
+			const appDay = new Date(appointment.date_appointment).toLocaleDateString();
+			const appStart = new Date(appointment.date_appointment).toLocaleTimeString();
+			const appEnd = new Date(appointment.date_appointment).toLocaleTimeString() + appointment.duration;
+
+			const reservedAppointment = ({
+				jour: appDay,
+				CreneauxReserver: { debut: appStart, fin: appEnd }
+			});
+			console.log( reservedAppointment);
+			
+		});
+		return data;
 	}
 
 	/**
@@ -126,4 +142,78 @@ export class PlanningTimetableService
 				return data;
 			});
 	}
+
+	/**
+	 *
+	 * @param timetable_start
+	 * @param timetable_end
+	 * @returns
+	 */
+	private diffDates(timetable_start: string, timetable_end: string) {
+		// Convertir les time without timezone en instances de Date
+		const start = new Date("1970-01-01 " + timetable_start);
+		const end = new Date("1970-01-01 " + timetable_end);
+		// Obtenir la différence en millisecondes
+		const diff = end.getTime() - start.getTime();
+		// Convertir la différence en minutes
+		const diffInMinutes = diff / (1000 * 60);
+		return diffInMinutes;
+	}
+
+	/**
+	 *
+	 * @param timeWithTimezone
+	 * @returns timeWithoutTz
+	 */
+	private substractTimezone(timeWithTimezone: Date) {
+		let timeWithTz = new Date("1970-01-01 " + timeWithTimezone);
+		let timeWithoutTz = new Date();
+		timeWithoutTz.setUTCHours(
+			timeWithTz.getUTCHours(),
+			timeWithTz.getUTCMinutes(),
+			timeWithTz.getUTCSeconds(),
+			timeWithTz.getUTCMilliseconds()
+		);
+		return timeWithoutTz;
+	}
+
+	/**
+	 *
+	 * @param nameDay
+	 */
+	private attributeDate(nameDay: string) {
+		// Date
+		let today = new Date();
+		let workingDay = nameDay;
+		let targetDate = new Date();
+		let days = [
+			"dimanche",
+			"lundi",
+			"mardi",
+			"mercredi",
+			"jeudi",
+			"vendredi",
+			"samedi",
+		];
+		let todayIndex = days.indexOf(
+			today.toLocaleDateString("fr-FR", { weekday: "long" })
+		);
+		let targetIndex = days.indexOf(workingDay);
+		let diff = targetIndex - todayIndex;
+
+		if (diff >= 0) targetDate.setUTCDate(today.getUTCDate() + diff);
+		else targetDate.setUTCDate(today.getUTCDate() + 7 + diff);
+
+		let dayDate = targetDate.toLocaleDateString("fr-FR", {
+			weekday: "long",
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+		});
+		return dayDate;
+	}
+
+	// private substractHolidays(day: Date, holidays: HolidayDto[] | null) {
+		
+	// }
 }

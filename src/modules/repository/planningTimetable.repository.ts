@@ -4,6 +4,7 @@ import { IFullRepository } from "../core/repository.interface";
 import { PlanningTimetableDto } from "../Data/Dto/planning.Dto";
 import { PlanningMapper } from "../Data/Mapper/planning.mapper";
 import { Activity } from "../Data/Models/activity.model";
+import { Appointment } from "../Data/Models/appointment.model";
 import { Holiday } from "../Data/Models/holiday.model";
 import { Planning } from "../Data/Models/planning.model";
 import { Timetable } from "../Data/Models/timetable.model";
@@ -39,7 +40,7 @@ export class PlanningTimetableRepository implements IFullRepository<PlanningTime
 	 */
 	async findById(id: number): Promise<PlanningTimetableDto | null> {
 		const result = await Planning.findByPk(id ,{
-            include: [{ model: Activity, include: [Holiday] }, Timetable],
+            include: [{ model: Activity, include: [Holiday, Appointment] }, Timetable],
             nest: true
         });
 		if (result === null) throw new NotFoundError("Planning not found");

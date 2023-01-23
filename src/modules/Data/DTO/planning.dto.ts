@@ -1,3 +1,4 @@
+import { AppointmentDto } from "./appointment.Dto";
 import { HolidayDto } from "./holiday.Dto";
 import { TimetableDto } from "./timetable.Dto";
 
@@ -19,6 +20,8 @@ export interface PlanningTimetableDto {
 	timetables?: TimetableDto[];
 
 	holidays?: HolidayDto[];
+
+	appointments?: AppointmentDto[];
 
 	id_activity: Number;
 }

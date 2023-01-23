@@ -1,6 +1,8 @@
 import { HolidayDto } from "../Dto/holiday.Dto";
 import { PlanningDto, PlanningTimetableDto } from "../Dto/planning.Dto";
 import { TimetableDto } from "../Dto/timetable.Dto";
+import { AppointmentDto } from "../Dto/appointment.Dto";
+import { Appointment } from "../Models/appointment.model";
 import { Holiday } from "../Models/holiday.model";
 import { Planning } from "../Models/planning.model";
 import { Timetable } from "../Models/timetable.model";
@@ -42,7 +44,18 @@ export class PlanningMapper {
 				end_date: holiday.end_date
 			}
 			return holidayDto;
-		})
+		});
+
+		let appointments: Appointment[] = planning.get({plain: true}).td_activity.td_appointments;
+
+		const appointmentData = appointments.map((appointment) => {
+			const appointmentDto: AppointmentDto  = {
+				id_td_user: appointment.id_td_user,
+				date_appointment: appointment.date_appointment,
+				duration: appointment.duration,
+			}
+			return appointmentDto
+		});
 
 		const Dto: PlanningTimetableDto = {
 			id_planning: planning.get("id_planning"),
@@ -51,6 +64,7 @@ export class PlanningMapper {
 			id_activity: planning.id_activity,
 			holidays: holidaysData,
 			timetables: timetableData,
+			appointments: appointmentData,
 		};
 		return Dto;
 	}
